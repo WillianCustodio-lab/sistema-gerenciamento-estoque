@@ -53,4 +53,4 @@ Pessoas responsáveis pelo cadastro, acompanhamento e controle de produtos em es
 | **Problema escolhido** | Dificuldade de acompanhar quantidades disponíveis e movimentações de produtos devido à ausência de um controle de estoque centralizado |
 | **Disciplina e semestre** | Engenharia de Software — 2026/2 |
 | **Professor** | Prof. Johnatan Oliveira |
-| **Repositório** | [Tolofi/sistema-gerenciamento-estoque](https://github.com/Tolofi/sistema-gerenciamento-estoque) |
+| **Repositório** | [WillianCustodio-lab/sistema-gerenciamento-estoque](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque) |
