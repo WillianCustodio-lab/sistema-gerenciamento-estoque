@@ -1,55 +1,52 @@
 # Visão Geral do Produto
 
-Este documento complementa a apresentação do projeto, detalhando o problema e os objetivos que orientam a solução.
+## Problema
 
-## Problema e contexto
+O controle inadequado de estoque dificulta o acompanhamento das quantidades disponíveis e das movimentações de produtos. A ausência de informações centralizadas pode ocasionar falta ou excesso de itens, perdas e registros desatualizados.
 
-O problema apresentado no README envolve a diferença entre as informações registradas e a quantidade física dos produtos. Quando uma entrada ou saída não é registrada, a consulta de estoque pode deixar de representar a disponibilidade real.
+Como exemplo ilustrativo, se o controle indicar 20 unidades e 5 forem retiradas sem registro, a quantidade apresentada será superior ao estoque físico. Da mesma forma, uma entrada não registrada pode levar à compra desnecessária de produtos.
 
-**Exemplos ilustrativos:**
+## Público
 
-- Um controle indica 20 unidades, mas 5 foram retiradas sem registro. A consulta apresenta uma disponibilidade superior à quantidade física.
-- Um recebimento não é registrado. A quantidade apresentada fica abaixo da disponível, podendo motivar uma compra desnecessária.
+Pessoas responsáveis pelo cadastro, acompanhamento e controle de produtos em estoque, que precisam consultar quantidades disponíveis e registrar entradas e saídas.
 
-Esses exemplos hipotéticos mostram por que o acompanhamento das movimentações é relevante para a confiabilidade das informações.
+## Solução e proposta de valor
 
-## Público e necessidades
+O projeto propõe uma aplicação web para reunir o cadastro de produtos, a consulta de quantidades e o registro de movimentações de estoque.
 
-O público identificado no README precisa responder a três perguntas em sua rotina:
+A proposta de valor é centralizar essas informações e facilitar sua consulta, contribuindo para uma gestão mais organizada, eficiente e confiável.
 
-- Qual é a quantidade disponível de um produto?
-- Quais entradas e saídas foram registradas?
-- Quais movimentações explicam as alterações de quantidade?
+## Objetivos
 
-## Visão do produto
-
-**Proposta de valor:** facilitar a conferência do estoque ao reunir a disponibilidade dos produtos e as movimentações registradas em um mesmo ambiente.
-
-**Objetivo geral:** apoiar uma gestão de estoque organizada e confiável, com informações centralizadas para registro e consulta.
+**Objetivo geral:** desenvolver uma aplicação web que facilite o gerenciamento de estoque por meio do cadastro de produtos e do acompanhamento de suas quantidades e movimentações.
 
 **Objetivos específicos:**
 
-- Facilitar a identificação da disponibilidade dos produtos.
-- Apoiar a conferência das alterações de quantidade por meio das movimentações registradas.
-- Reduzir a dispersão das informações utilizadas no controle de estoque.
+- Organizar as informações básicas dos produtos.
+- Permitir a consulta das quantidades disponíveis.
+- Registrar entradas e saídas de produtos.
+- Disponibilizar a consulta das movimentações registradas.
 
 ## Escopo inicial
 
-O escopo corresponde às funcionalidades previstas no README. Elas abrangem a identificação dos produtos, o acompanhamento de suas quantidades e a consulta das movimentações de entrada e saída.
+| Funcionalidade | Finalidade |
+| :--- | :--- |
+| Cadastro de produtos | Registrar os produtos e suas informações básicas. |
+| Consulta de estoque | Visualizar os produtos e suas quantidades disponíveis. |
+| Registro de entradas | Registrar o recebimento de produtos no estoque. |
+| Registro de saídas | Registrar a retirada de produtos do estoque. |
+| Consulta de movimentações | Acompanhar as entradas e saídas registradas. |
 
-## Restrições e premissas
+## Diretrizes do projeto
 
-- **Formato da solução:** aplicação web, conforme a exigência da disciplina.
-- **Desenvolvimento:** entregas incrementais, com organização do trabalho por Scrum simplificado e registros no GitHub.
-- **Confiabilidade dos registros:** a correspondência entre as informações apresentadas e o estoque físico depende do registro correto das entradas e saídas.
+- Desenvolvimento de uma aplicação web.
+- Entregas incrementais conforme o cronograma da disciplina.
+- Organização do trabalho com Scrum simplificado.
+- Uso de GitHub, Issues e GitHub Projects para versionamento e acompanhamento das atividades.
+- Documentação e evidências vinculadas às entregas de cada sprint.
 
-## Diferenciais da solução
+## Diferenciais da proposta
 
-A consulta das movimentações complementa a visualização do saldo: além de identificar a quantidade disponível, o responsável pode consultar os registros que explicam suas alterações. Essa relação aproxima a solução da rotina de conferência de estoque.
+A solução reúne cadastro, quantidades disponíveis e movimentações em uma mesma aplicação. A consulta do histórico de entradas e saídas apoia a conferência das alterações no estoque, complementando o cadastro dos produtos.
 
-## Histórico de mudanças
-
-| Etapa | Alteração | Motivo |
-| :--- | :--- | :--- |
-| Sprint 1 | Elaboração da visão geral do produto. | Detalhar a proposta inicial. |
-| Sprint 1 | Simplificação do conteúdo e remoção de repetições e links. | Manter o documento complementar à apresentação do projeto. |
+[Voltar ao README](../README.md)
