@@ -43,7 +43,7 @@ Pessoas responsáveis pelo cadastro, acompanhamento e controle de produtos em es
 | Willian Custódio | [@williancustodio-lab](https://github.com/williancustodio-lab) |
 | Juliano Goulart | [@jotaGoulart](https://github.com/jotaGoulart) |
 | João Pedro Arriel | [@pereirajp06](https://github.com/pereirajp06) |
-| João Tófoli | [@Tofoli](https://github.com/Tofoli) |
+| João Gabriel Tófoli | [@Tolofi](https://github.com/Tolofi) |
 
 ## Contexto acadêmico
 
