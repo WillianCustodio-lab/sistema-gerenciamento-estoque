@@ -8,7 +8,7 @@
       content="Protótipo inicial do Sistema de Gerenciamento de Estoque."
     />
     <title>Sistema de Gerenciamento de Estoque</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/styles.css?v=sprint3" />
   </head>
   <body>
     <header class="hero">
@@ -30,7 +30,7 @@
             <p class="eyebrow">Funcionalidade inicial</p>
             <h2 id="titulo-cadastro">Cadastrar produto</h2>
           </div>
-          <span class="badge">Protótipo</span>
+          <span class="badge">Sprint 3</span>
         </div>
 
         <form id="product-form" novalidate>
@@ -91,6 +91,50 @@
         </form>
       </section>
 
+      <section class="card" aria-labelledby="titulo-entrada">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Movimentação de estoque</p>
+            <h2 id="titulo-entrada">Registrar entrada</h2>
+          </div>
+          <span class="badge">RF-03</span>
+        </div>
+
+        <form id="entry-form" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="entry-product">Produto</label>
+              <select id="entry-product" name="productCode" required>
+                <option value="">Selecione um produto</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="entry-quantity">Quantidade recebida</label>
+              <input
+                id="entry-quantity"
+                name="quantity"
+                type="number"
+                min="1"
+                step="1"
+                value="1"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <p
+              id="entry-message"
+              class="message"
+              role="status"
+              aria-live="polite"
+            ></p>
+            <button id="entry-submit" type="submit">Registrar entrada</button>
+          </div>
+        </form>
+      </section>
+
       <section class="card" aria-labelledby="titulo-produtos">
         <div class="section-heading">
           <div>
@@ -119,10 +163,39 @@
           </table>
         </div>
       </section>
+
+      <section class="card" aria-labelledby="titulo-movimentacoes">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Histórico</p>
+            <h2 id="titulo-movimentacoes">Entradas registradas</h2>
+          </div>
+          <span id="movement-count" class="counter">0 movimentações</span>
+        </div>
+
+        <div id="movement-empty-state" class="empty-state">
+          <strong>Nenhuma entrada registrada.</strong>
+          <span>As movimentações de entrada aparecerão neste histórico.</span>
+        </div>
+
+        <div id="movement-table-wrapper" class="table-wrapper" hidden>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Data e hora</th>
+                <th scope="col">Produto</th>
+                <th scope="col">Tipo</th>
+                <th scope="col" class="quantity-column">Quantidade</th>
+              </tr>
+            </thead>
+            <tbody id="movement-list"></tbody>
+          </table>
+        </div>
+      </section>
     </main>
 
     <footer>
-      <div class="container">Protótipo inicial do projeto acadêmico.</div>
+      <div class="container">Incremento da Sprint 3 do projeto acadêmico.</div>
     </footer>
 
     <script src="js/app.js"></script>

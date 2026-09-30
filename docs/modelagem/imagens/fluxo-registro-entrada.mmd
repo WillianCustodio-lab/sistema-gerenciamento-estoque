@@ -1,0 +1,12 @@
+flowchart TD
+    A[Início] --> B[Selecionar produto]
+    B --> C[Informar quantidade recebida]
+    C --> D{Produto existe e quantidade é válida?}
+    D -- Não --> E[Exibir mensagem de erro]
+    E --> B
+    D -- Sim --> F[Somar quantidade ao saldo]
+    F --> G[Criar movimentação de entrada]
+    G --> H[Persistir produto e movimentação]
+    H --> I[Atualizar lista e histórico]
+    I --> J[Exibir confirmação]
+    J --> K[Fim]

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="900" viewBox="0 0 1100 900" role="img" aria-labelledby="title desc">
+  <title id="title">Fluxo de registro de entrada</title>
+  <desc id="desc">Diagrama de atividades do registro de entrada de produto.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#2457d6"/>
+    </marker>
+    <style>
+      .box{fill:#fff;stroke:#2457d6;stroke-width:2}.decision{fill:#edf2ff;stroke:#2457d6;stroke-width:2}.terminal{fill:#2457d6;stroke:#163b91;stroke-width:2}.line{stroke:#2457d6;stroke-width:2;fill:none;marker-end:url(#arrow)}.label{font:600 18px Arial,sans-serif;fill:#172033;text-anchor:middle}.terminalText{font:700 18px Arial,sans-serif;fill:#fff;text-anchor:middle}.note{font:600 15px Arial,sans-serif;fill:#667085}.heading{font:700 28px Arial,sans-serif;fill:#172033;text-anchor:middle}
+    </style>
+  </defs>
+  <rect width="1100" height="900" fill="#f4f7fb"/>
+  <text x="550" y="42" class="heading">Registro de entrada de produto - RF-03</text>
+
+  <rect x="420" y="70" width="260" height="52" rx="26" class="terminal"/>
+  <text x="550" y="103" class="terminalText">Início</text>
+  <path d="M550 122 V155" class="line"/>
+
+  <rect x="370" y="155" width="360" height="62" rx="10" class="box"/>
+  <text x="550" y="193" class="label">Selecionar produto</text>
+  <path d="M550 217 V250" class="line"/>
+
+  <rect x="370" y="250" width="360" height="62" rx="10" class="box"/>
+  <text x="550" y="288" class="label">Informar quantidade recebida</text>
+  <path d="M550 312 V345" class="line"/>
+
+  <polygon points="550,345 750,420 550,495 350,420" class="decision"/>
+  <text x="550" y="411" class="label">Produto existe e</text>
+  <text x="550" y="435" class="label">quantidade é válida?</text>
+
+  <path d="M350 420 H165 V505" class="line"/>
+  <text x="225" y="405" class="note">Não</text>
+  <rect x="40" y="505" width="250" height="62" rx="10" class="box"/>
+  <text x="165" y="543" class="label">Exibir erro</text>
+  <path d="M165 567 V590 H320 V186 H370" class="line"/>
+
+  <path d="M550 495 V530" class="line"/>
+  <text x="570" y="517" class="note">Sim</text>
+  <rect x="370" y="530" width="360" height="62" rx="10" class="box"/>
+  <text x="550" y="568" class="label">Somar quantidade ao saldo</text>
+  <path d="M550 592 V625" class="line"/>
+
+  <rect x="370" y="625" width="360" height="62" rx="10" class="box"/>
+  <text x="550" y="663" class="label">Criar movimentação de entrada</text>
+  <path d="M550 687 V720" class="line"/>
+
+  <rect x="330" y="720" width="440" height="62" rx="10" class="box"/>
+  <text x="550" y="758" class="label">Persistir e atualizar a interface</text>
+  <path d="M550 782 V815" class="line"/>
+
+  <rect x="420" y="815" width="260" height="52" rx="26" class="terminal"/>
+  <text x="550" y="848" class="terminalText">Confirmação e fim</text>
+</svg>

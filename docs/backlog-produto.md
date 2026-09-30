@@ -20,26 +20,25 @@ Os itens são priorizados por nível de importância:
 
 ## Última atualização
 
-**14/09/2026**
+**29/09/2026**
 
-## Sprint corrente — Sprint 2
+## Sprint corrente — Sprint 3
 
-O objetivo da Sprint 2 foi definir requisitos verificáveis e relacioná-los a um fluxo inicial da aplicação web.
+O objetivo da Sprint 3 foi representar a estrutura e o comportamento da aplicação e evoluir um fluxo relacionado aos requisitos.
 
 ### Itens concluídos
 
 | Issue | Item | Prioridade | Resultado |
 |---|---|---|---|
-| `#25` | Estruturar os requisitos da Sprint 2 | P0 | Requisitos, atores, regras de negócio, histórias e critérios documentados. |
-| `#10` | Criar a estrutura web inicial | P0 | Aplicação web executável com cadastro e consulta de produtos. |
-| `#1` | Cadastrar produtos | P1 | Fluxo inicial de cadastro implementado. |
-| `#2` | Consultar produtos e quantidades | P1 | Produtos cadastrados apresentados com suas quantidades. |
+| `#26` | Elaborar os modelos da Sprint 3 | P0 | Modelo comportamental, modelo estrutural e descrições produzidos. |
+| `#27` | Relacionar requisitos, modelos e código | P0 | Matriz de rastreabilidade e correspondência com o código registradas. |
+| `#28` | Consolidar a entrega da Sprint 3 | P0 | Documentação e evidências da sprint organizadas. |
+| `#3` | Registrar entradas de produtos | P1 | Fluxo de entrada implementado com atualização do saldo e histórico. |
 
 ### Próximos itens prioritários
 
 | Issue | Item | Prioridade | Estado |
 |---|---|---|---|
-| `#3` | Registrar entradas de produtos | P1 | Backlog |
 | `#4` | Registrar saídas de produtos | P1 | Backlog |
 | `#5` | Consultar movimentações de estoque | P1 | Backlog |
 
@@ -49,3 +48,4 @@ O objetivo da Sprint 2 foi definir requisitos verificáveis e relacioná-los a u
 |---|---|---|
 | Sprint 1 | Criação e organização inicial do Product Backlog. | Definir o produto e estruturar o trabalho no GitHub Project. |
 | Sprint 2 | Inclusão dos requisitos e atualização das funcionalidades de cadastro e consulta. | Registrar o incremento da aplicação e preparar os próximos fluxos do estoque. |
+| Sprint 3 | Inclusão dos modelos, da rastreabilidade e do fluxo de registro de entrada. | Relacionar requisitos, modelos e código em um incremento demonstrável. |

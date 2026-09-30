@@ -1,0 +1,19 @@
+classDiagram
+    class Produto {
+        +String codigo
+        +String nome
+        +String categoria
+        +Number quantidade
+        +registrarEntrada(quantidade)
+    }
+
+    class Movimentacao {
+        +String id
+        +String codigoProduto
+        +String nomeProduto
+        +String tipo
+        +Number quantidade
+        +Date dataHora
+    }
+
+    Produto "1" --> "0..*" Movimentacao : possui

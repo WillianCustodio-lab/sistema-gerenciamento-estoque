@@ -16,6 +16,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -121,7 +125,8 @@ label {
   font-weight: 700;
 }
 
-input {
+input,
+select {
   width: 100%;
   min-height: 44px;
   padding: 10px 12px;
@@ -134,9 +139,16 @@ input {
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-input:focus {
+input:focus,
+select:focus {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(36, 87, 214, 0.14);
+}
+
+select:disabled,
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .form-actions {
@@ -232,6 +244,11 @@ tbody tr:last-child td {
 
 .product-name {
   font-weight: 700;
+}
+
+.movement-type {
+  color: var(--success);
+  font-weight: 750;
 }
 
 .muted {
