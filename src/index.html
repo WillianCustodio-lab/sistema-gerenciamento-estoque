@@ -1,245 +1,133 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Protótipo inicial do Sistema de Gerenciamento de Estoque."
-    />
-    <title>Sistema de Gerenciamento de Estoque</title>
-    <link rel="stylesheet" href="css/styles.css?v=sprint3" />
-  </head>
-  <body>
-    <header class="hero">
-      <div class="container">
-        <p class="eyebrow">Engenharia de Software · 2026/2</p>
-        <h1>Sistema de Gerenciamento de Estoque</h1>
-        <p class="hero__description">
-          Uma aplicação web para centralizar o cadastro de produtos, facilitar a
-          consulta das quantidades disponíveis e apoiar o controle das entradas e
-          saídas do estoque.
-        </p>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Controle de Estoque</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/inventory.js" defer></script>
+  <script src="js/storage.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <header class="header">
+    <div class="shell header-inner">
+      <a class="brand" href="#visao-geral">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z M4 7.5l8 4.5 8-4.5 M12 12v9 M8 5.25l8 4.5"/>
+        </svg>
+        Controle de Estoque
+      </a>
+      <nav aria-label="Navegação principal">
+        <a href="#visao-geral" aria-current="page">Visão geral</a>
+        <a href="#produtos">Produtos</a>
+        <a href="#movimentacoes">Movimentações</a>
+      </nav>
+    </div>
+  </header>
+  <main class="shell">
+    <p id="startup-error" class="message error" role="alert" hidden></p>
+    <section id="visao-geral" aria-labelledby="overview-title">
+      <div class="page-heading">
+        <h1 id="overview-title" tabindex="-1">Visão geral</h1>
+        <p>Acompanhe o saldo do estoque e as últimas movimentações.</p>
       </div>
-    </header>
-
-    <main class="container main-content">
-      <section class="card" aria-labelledby="titulo-cadastro">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Funcionalidade inicial</p>
-            <h2 id="titulo-cadastro">Cadastrar produto</h2>
-          </div>
-          <span class="badge">Sprint 4</span>
+      <dl class="metrics">
+        <div><dt>Produtos cadastrados</dt><dd id="total-products">0</dd></div>
+        <div><dt>Unidades em estoque</dt><dd id="total-units">0</dd></div>
+        <div><dt>Produtos sem estoque</dt><dd id="total-out">0</dd></div>
+      </dl>
+      <section class="panel" aria-labelledby="recent-title">
+        <div class="panel-header">
+          <h2 id="recent-title">Movimentações recentes</h2>
+          <a class="text-link" href="#movimentacoes">Ver histórico <span aria-hidden="true">→</span></a>
         </div>
-
-        <form id="product-form" novalidate>
-          <div class="form-grid">
-            <div class="field">
-              <label for="product-code">Código</label>
-              <input
-                id="product-code"
-                name="code"
-                type="text"
-                maxlength="20"
-                placeholder="Ex.: PROD-001"
-                required
-              />
-            </div>
-
-            <div class="field">
-              <label for="product-name">Nome</label>
-              <input
-                id="product-name"
-                name="name"
-                type="text"
-                maxlength="80"
-                placeholder="Ex.: Teclado sem fio"
-                required
-              />
-            </div>
-
-            <div class="field">
-              <label for="product-category">Categoria</label>
-              <input
-                id="product-category"
-                name="category"
-                type="text"
-                maxlength="50"
-                placeholder="Ex.: Periféricos"
-              />
-            </div>
-
-            <div class="field">
-              <label for="product-quantity">Quantidade inicial</label>
-              <input
-                id="product-quantity"
-                name="quantity"
-                type="number"
-                min="0"
-                step="1"
-                value="0"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="form-actions">
-            <p id="form-message" class="message" role="status" aria-live="polite"></p>
-            <button type="submit">Cadastrar produto</button>
-          </div>
-        </form>
+        <p id="recent-empty" class="empty">As entradas e saídas registradas aparecem aqui.</p>
+        <div id="recent-table" class="table-wrap" role="region" aria-labelledby="recent-title" tabindex="0" hidden>
+          <table aria-labelledby="recent-title">
+            <thead><tr><th scope="col">Data e hora</th><th scope="col">Produto</th><th scope="col">Tipo</th><th scope="col" class="numeric">Quantidade</th></tr></thead>
+            <tbody id="recent-list"></tbody>
+          </table>
+        </div>
       </section>
+    </section>
 
-      <section class="card" aria-labelledby="titulo-entrada">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Movimentação de estoque</p>
-            <h2 id="titulo-entrada">Registrar entrada</h2>
-          </div>
-          <span class="badge">RF-03</span>
+    <section id="produtos" aria-labelledby="products-title" hidden>
+      <div class="page-heading heading-actions">
+        <div><h1 id="products-title" tabindex="-1">Produtos</h1><p>Consulte os itens cadastrados e seus saldos.</p></div>
+        <button id="new-product" class="primary" type="button"><span aria-hidden="true">+</span> Novo produto</button>
+      </div>
+      <p id="product-notice" class="message success" role="status"></p>
+      <section class="panel" aria-labelledby="product-list-title">
+        <div class="panel-header product-toolbar">
+          <div><h2 id="product-list-title">Produtos cadastrados</h2><p id="product-count" role="status"></p></div>
+          <label class="search">Pesquisar por nome ou código
+            <input id="product-search" type="search" placeholder="Ex.: caixa ou CX-01">
+          </label>
         </div>
-
-        <form id="entry-form" novalidate>
-          <div class="form-grid">
-            <div class="field">
-              <label for="entry-product">Produto</label>
-              <select id="entry-product" name="productCode" required>
-                <option value="">Selecione um produto</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="entry-quantity">Quantidade recebida</label>
-              <input
-                id="entry-quantity"
-                name="quantity"
-                type="number"
-                min="1"
-                step="1"
-                value="1"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="form-actions">
-            <p
-              id="entry-message"
-              class="message"
-              role="status"
-              aria-live="polite"
-            ></p>
-            <button id="entry-submit" type="submit">Registrar entrada</button>
-          </div>
-        </form>
-      </section>
-
-      <section class="card" aria-labelledby="titulo-saida">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Movimentação de estoque</p>
-            <h2 id="titulo-saida">Registrar saída</h2>
-          </div>
-          <span class="badge">RF-04</span>
-        </div>
-
-        <form id="exit-form" novalidate>
-          <div class="form-grid">
-            <div class="field">
-              <label for="exit-product">Produto</label>
-              <select id="exit-product" name="productCode" required>
-                <option value="">Selecione um produto</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="exit-quantity">Quantidade retirada</label>
-              <input
-                id="exit-quantity"
-                name="quantity"
-                type="number"
-                min="1"
-                step="1"
-                value="1"
-                required
-              />
-            </div>
-          </div>
-
-          <div class="form-actions">
-            <p id="exit-message" class="message" role="status" aria-live="polite"></p>
-            <button id="exit-submit" type="submit">Registrar saída</button>
-          </div>
-        </form>
-      </section>
-
-      <section class="card" aria-labelledby="titulo-produtos">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Estoque atual</p>
-            <h2 id="titulo-produtos">Produtos cadastrados</h2>
-          </div>
-          <span id="product-count" class="counter">0 produtos</span>
-        </div>
-
-        <div id="empty-state" class="empty-state">
-          <strong>Nenhum produto cadastrado.</strong>
-          <span>Use o formulário acima para adicionar o primeiro item.</span>
-        </div>
-
-        <div id="table-wrapper" class="table-wrapper" hidden>
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">Código</th>
-                <th scope="col">Produto</th>
-                <th scope="col">Categoria</th>
-                <th scope="col" class="quantity-column">Quantidade</th>
-              </tr>
-            </thead>
+        <p id="products-empty" class="empty"></p>
+        <div id="product-table" class="table-wrap" role="region" aria-labelledby="product-list-title" tabindex="0" hidden>
+          <table aria-labelledby="product-list-title">
+            <thead><tr><th scope="col">Código</th><th scope="col">Nome</th><th scope="col">Categoria</th><th scope="col" class="numeric">Saldo</th><th scope="col">Situação</th></tr></thead>
             <tbody id="product-list"></tbody>
           </table>
         </div>
       </section>
+    </section>
 
-      <section class="card" aria-labelledby="titulo-movimentacoes">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Histórico</p>
-            <h2 id="titulo-movimentacoes">Movimentações registradas</h2>
-          </div>
-          <span id="movement-count" class="counter">0 movimentações</span>
-        </div>
-
-        <div id="movement-empty-state" class="empty-state">
-          <strong>Nenhuma movimentação registrada.</strong>
-          <span>As entradas e saídas aparecerão neste histórico.</span>
-        </div>
-
-        <div id="movement-table-wrapper" class="table-wrapper" hidden>
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">Data e hora</th>
-                <th scope="col">Produto</th>
-                <th scope="col">Tipo</th>
-                <th scope="col" class="quantity-column">Quantidade</th>
-              </tr>
-            </thead>
-            <tbody id="movement-list"></tbody>
+    <section id="movimentacoes" aria-labelledby="movements-title" hidden>
+      <div class="page-heading">
+        <h1 id="movements-title" tabindex="-1">Movimentações</h1>
+        <p>Registre entradas e saídas e consulte o histórico do estoque.</p>
+      </div>
+      <section class="panel form-panel" aria-labelledby="movement-form-title">
+        <h2 id="movement-form-title">Registrar movimentação</h2>
+        <p id="movement-no-products" class="help" hidden>Para movimentar o estoque, <a href="#produtos">cadastre um produto</a>.</p>
+        <form id="movement-form">
+          <fieldset id="movement-fields" class="movement-fields">
+            <label>Tipo
+              <select id="movement-type" name="type"><option>Entrada</option><option>Saída</option></select>
+            </label>
+            <label>Produto
+              <select id="movement-product" name="productCode" aria-describedby="movement-balance" required></select>
+              <span id="movement-balance" class="help" aria-live="polite"></span>
+            </label>
+            <label>Quantidade
+              <input name="quantity" type="number" min="1" step="1" value="1" required>
+            </label>
+            <button class="primary" type="submit">Registrar</button>
+          </fieldset>
+          <p id="movement-message" class="message" role="status"></p>
+        </form>
+      </section>
+      <section class="panel" aria-labelledby="history-title">
+        <div class="panel-header"><h2 id="history-title">Histórico de movimentações</h2></div>
+        <p id="history-empty" class="empty">Nenhuma movimentação registrada.</p>
+        <div id="history-table" class="table-wrap" role="region" aria-labelledby="history-title" tabindex="0" hidden>
+          <table aria-labelledby="history-title">
+            <thead><tr><th scope="col">Data e hora</th><th scope="col">Produto</th><th scope="col">Tipo</th><th scope="col" class="numeric">Quantidade</th></tr></thead>
+            <tbody id="history-list"></tbody>
           </table>
         </div>
       </section>
-    </main>
+    </section>
+  </main>
 
-    <footer>
-      <div class="container">Incremento da Sprint 4 do projeto acadêmico.</div>
-    </footer>
-
-    <script src="js/inventory.js"></script>
-    <script src="js/storage.js"></script>
-    <script src="js/app.js"></script>
-  </body>
+  <dialog id="product-dialog" aria-labelledby="dialog-title">
+    <form id="product-form">
+      <h2 id="dialog-title">Cadastrar produto</h2>
+      <div class="product-fields">
+        <label>Código<input name="code" required autofocus></label>
+        <label>Nome<input name="name" required></label>
+        <label>Categoria <span class="help">(opcional)</span><input name="category"></label>
+        <label>Quantidade inicial<input name="quantity" type="number" min="0" step="1" value="0" required></label>
+      </div>
+      <p id="product-message" class="message" role="alert"></p>
+      <div class="dialog-actions">
+        <button id="cancel-product" type="button">Cancelar</button>
+        <button class="primary" type="submit">Cadastrar</button>
+      </div>
+    </form>
+  </dialog>
+</body>
 </html>
-
