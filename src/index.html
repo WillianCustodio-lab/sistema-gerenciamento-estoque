@@ -30,7 +30,7 @@
             <p class="eyebrow">Funcionalidade inicial</p>
             <h2 id="titulo-cadastro">Cadastrar produto</h2>
           </div>
-          <span class="badge">Sprint 3</span>
+          <span class="badge">Sprint 4</span>
         </div>
 
         <form id="product-form" novalidate>
@@ -135,6 +135,45 @@
         </form>
       </section>
 
+      <section class="card" aria-labelledby="titulo-saida">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Movimentação de estoque</p>
+            <h2 id="titulo-saida">Registrar saída</h2>
+          </div>
+          <span class="badge">RF-04</span>
+        </div>
+
+        <form id="exit-form" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="exit-product">Produto</label>
+              <select id="exit-product" name="productCode" required>
+                <option value="">Selecione um produto</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="exit-quantity">Quantidade retirada</label>
+              <input
+                id="exit-quantity"
+                name="quantity"
+                type="number"
+                min="1"
+                step="1"
+                value="1"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <p id="exit-message" class="message" role="status" aria-live="polite"></p>
+            <button id="exit-submit" type="submit">Registrar saída</button>
+          </div>
+        </form>
+      </section>
+
       <section class="card" aria-labelledby="titulo-produtos">
         <div class="section-heading">
           <div>
@@ -168,14 +207,14 @@
         <div class="section-heading">
           <div>
             <p class="eyebrow">Histórico</p>
-            <h2 id="titulo-movimentacoes">Entradas registradas</h2>
+            <h2 id="titulo-movimentacoes">Movimentações registradas</h2>
           </div>
           <span id="movement-count" class="counter">0 movimentações</span>
         </div>
 
         <div id="movement-empty-state" class="empty-state">
-          <strong>Nenhuma entrada registrada.</strong>
-          <span>As movimentações de entrada aparecerão neste histórico.</span>
+          <strong>Nenhuma movimentação registrada.</strong>
+          <span>As entradas e saídas aparecerão neste histórico.</span>
         </div>
 
         <div id="movement-table-wrapper" class="table-wrapper" hidden>
@@ -195,7 +234,7 @@
     </main>
 
     <footer>
-      <div class="container">Incremento da Sprint 3 do projeto acadêmico.</div>
+      <div class="container">Incremento da Sprint 4 do projeto acadêmico.</div>
     </footer>
 
     <script src="js/inventory.js"></script>

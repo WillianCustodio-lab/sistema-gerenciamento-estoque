@@ -247,8 +247,15 @@ tbody tr:last-child td {
 }
 
 .movement-type {
-  color: var(--success);
   font-weight: 750;
+}
+
+.movement-type--entry {
+  color: var(--success);
+}
+
+.movement-type--exit {
+  color: var(--danger);
 }
 
 .muted {

@@ -16,6 +16,11 @@ const elements = {
   entryProduct: document.querySelector("#entry-product"),
   entryQuantity: document.querySelector("#entry-quantity"),
   entrySubmit: document.querySelector("#entry-submit"),
+  exitForm: document.querySelector("#exit-form"),
+  exitMessage: document.querySelector("#exit-message"),
+  exitProduct: document.querySelector("#exit-product"),
+  exitQuantity: document.querySelector("#exit-quantity"),
+  exitSubmit: document.querySelector("#exit-submit"),
   movementList: document.querySelector("#movement-list"),
   movementCount: document.querySelector("#movement-count"),
   movementEmptyState: document.querySelector("#movement-empty-state"),
@@ -53,31 +58,43 @@ function renderProducts(products) {
   elements.productCount.textContent = `${products.length} ${products.length === 1 ? "produto" : "produtos"}`;
 }
 
-function renderProductOptions(products) {
-  const selectedCode = elements.entryProduct.value;
-  elements.entryProduct.replaceChildren();
+function populateProductSelect(products, select) {
+  const selectedCode = select.value;
+  select.replaceChildren();
   const placeholder = document.createElement("option");
   placeholder.value = "";
   placeholder.textContent = products.length
     ? "Selecione um produto"
     : "Cadastre um produto primeiro";
-  elements.entryProduct.append(placeholder);
+  select.append(placeholder);
 
   products.forEach((product) => {
     const option = document.createElement("option");
     option.value = product.code;
     option.textContent = `${product.name} (${product.code}) — saldo ${product.quantity}`;
-    elements.entryProduct.append(option);
+    select.append(option);
   });
 
   if (products.some((product) => product.code === selectedCode)) {
-    elements.entryProduct.value = selectedCode;
+    select.value = selectedCode;
   }
+}
+
+function renderProductOptions(products) {
+  populateProductSelect(products, elements.entryProduct);
+  populateProductSelect(products, elements.exitProduct);
 
   const hasProducts = products.length > 0;
-  elements.entryProduct.disabled = !hasProducts;
-  elements.entryQuantity.disabled = !hasProducts;
-  elements.entrySubmit.disabled = !hasProducts;
+  for (const element of [
+    elements.entryProduct,
+    elements.entryQuantity,
+    elements.entrySubmit,
+    elements.exitProduct,
+    elements.exitQuantity,
+    elements.exitSubmit,
+  ]) {
+    element.disabled = !hasProducts;
+  }
 }
 
 function renderMovements(movements) {
@@ -91,7 +108,10 @@ function renderMovements(movements) {
     row.append(
       createCell(formattedDate, "muted"),
       createCell(`${movement.productName} (${movement.productCode})`, "product-name"),
-      createCell(movement.type, "movement-type"),
+      createCell(
+        movement.type,
+        `movement-type ${movement.type === "Saída" ? "movement-type--exit" : "movement-type--entry"}`,
+      ),
       createCell(String(movement.quantity), "quantity-column"),
     );
     elements.movementList.append(row);
@@ -144,6 +164,22 @@ elements.entryForm.addEventListener("submit", (event) => {
     showMessage(elements.entryMessage, `Entrada registrada para ${product.name}.`, "success");
   } catch (error) {
     handleError(elements.entryMessage, error);
+  }
+});
+
+elements.exitForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const data = new FormData(elements.exitForm);
+  try {
+    const { product } = service.registerExit(
+      data.get("productCode"),
+      data.get("quantity"),
+    );
+    renderApplication();
+    elements.exitQuantity.value = "1";
+    showMessage(elements.exitMessage, `Saída registrada para ${product.name}.`, "success");
+  } catch (error) {
+    handleError(elements.exitMessage, error);
   }
 });
 
