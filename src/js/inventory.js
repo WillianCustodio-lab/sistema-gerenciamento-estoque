@@ -35,7 +35,8 @@ class Movement {
 class InventoryService {
   constructor(repository) {
     this.repository = repository;
-    this.products = repository.loadProducts().map(
+    const { products, movements } = repository.load();
+    this.products = products.map(
       (product) =>
         new Product(
           product.code,
@@ -44,7 +45,7 @@ class InventoryService {
           product.quantity,
         ),
     );
-    this.movements = repository.loadMovements();
+    this.movements = movements;
   }
 
   getProducts() {
@@ -82,8 +83,9 @@ class InventoryService {
       normalizedCategory,
       normalizedQuantity,
     );
-    this.products.push(product);
-    this.repository.saveProducts(this.products);
+    const products = [...this.products, product];
+    this.repository.save({ products, movements: this.movements });
+    this.products = products;
     return product;
   }
 
@@ -96,10 +98,10 @@ class InventoryService {
   }
 
   registerMovement(type, productCode, quantity) {
-    const product = this.products.find((item) => item.code === productCode);
+    const currentProduct = this.products.find((item) => item.code === productCode);
     const normalizedQuantity = Number(quantity);
 
-    if (!product) {
+    if (!currentProduct) {
       throw new InventoryError("Selecione um produto cadastrado.");
     }
 
@@ -107,6 +109,8 @@ class InventoryService {
       throw new InventoryError("Informe uma quantidade inteira maior que zero.");
     }
 
+    const { code, name, category, quantity: balance } = currentProduct;
+    const product = new Product(code, name, category, balance);
     if (type === "Entrada") {
       product.registerEntry(normalizedQuantity);
     } else if (type === "Saída") {
@@ -116,8 +120,11 @@ class InventoryService {
     }
 
     const movement = new Movement(product, type, normalizedQuantity);
-    this.movements.unshift(movement);
-    this.repository.saveInventory(this.products, this.movements);
+    const products = this.products.map((item) => item === currentProduct ? product : item);
+    const movements = [movement, ...this.movements];
+    this.repository.save({ products, movements });
+    this.products = products;
+    this.movements = movements;
     return { product, movement };
   }
 }

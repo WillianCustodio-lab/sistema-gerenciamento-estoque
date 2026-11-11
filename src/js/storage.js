@@ -1,38 +1,40 @@
 (function () {
-const PRODUCTS_STORAGE_KEY = "estoque.produtos";
-const MOVEMENTS_STORAGE_KEY = "estoque.movimentacoes";
+  const INVENTORY_KEY = "estoque.inventario";
+  const LEGACY_PRODUCTS_KEY = "estoque.produtos";
+  const LEGACY_MOVEMENTS_KEY = "estoque.movimentacoes";
 
-class LocalStorageRepository {
-  constructor(storage = window.localStorage) {
-    this.storage = storage;
-  }
+  class LocalStorageRepository {
+    constructor(storage = window.localStorage) {
+      this.storage = storage;
+    }
 
-  loadProducts() {
-    return this.loadCollection(PRODUCTS_STORAGE_KEY);
-  }
+    load() {
+      const snapshot = this.storage.getItem(INVENTORY_KEY);
+      if (snapshot !== null) {
+        const inventory = JSON.parse(snapshot);
+        if (!Array.isArray(inventory?.products) || !Array.isArray(inventory?.movements)) {
+          throw new Error("Dados de estoque inválidos.");
+        }
+        return inventory;
+      }
+      return {
+        products: this.loadLegacyCollection(LEGACY_PRODUCTS_KEY),
+        movements: this.loadLegacyCollection(LEGACY_MOVEMENTS_KEY),
+      };
+    }
 
-  loadMovements() {
-    return this.loadCollection(MOVEMENTS_STORAGE_KEY);
-  }
+    save(inventory) {
+      this.storage.setItem(INVENTORY_KEY, JSON.stringify(inventory));
+    }
 
-  saveProducts(products) {
-    this.storage.setItem(PRODUCTS_STORAGE_KEY, JSON.stringify(products));
-  }
-
-  saveInventory(products, movements) {
-    this.saveProducts(products);
-    this.storage.setItem(MOVEMENTS_STORAGE_KEY, JSON.stringify(movements));
-  }
-
-  loadCollection(key) {
-    try {
-      const storedItems = JSON.parse(this.storage.getItem(key));
-      return Array.isArray(storedItems) ? storedItems : [];
-    } catch {
-      return [];
+    loadLegacyCollection(key) {
+      const stored = this.storage.getItem(key);
+      if (stored === null) return [];
+      const items = JSON.parse(stored);
+      if (!Array.isArray(items)) throw new Error("Dados de estoque inválidos.");
+      return items;
     }
   }
-}
 
   window.InventoryStorage = { LocalStorageRepository };
 })();
