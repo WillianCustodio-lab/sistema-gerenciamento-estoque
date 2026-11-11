@@ -1,25 +1,27 @@
 # Aplicação web
 
-Este diretório contém os incrementos executáveis do Sistema de Gerenciamento de Estoque.
+A interface utiliza HTML, CSS e JavaScript puro. Nesta etapa, os dados permanecem no `localStorage` do navegador.
 
-## Funcionalidade disponível
+## Funcionalidades disponíveis
 
-- cadastro de produto com código, nome, categoria e quantidade inicial;
-- validação dos campos obrigatórios e da quantidade;
-- bloqueio de códigos duplicados;
-- consulta dos produtos cadastrados;
-- registro de entradas para produtos cadastrados;
-- atualização automática da quantidade após uma entrada;
-- consulta do histórico de entradas;
-- armazenamento dos dados no navegador com `localStorage`.
+- cadastro e consulta de produtos;
+- validação de código duplicado e quantidades;
+- registro de entradas e saídas;
+- rejeição de saída superior ao saldo;
+- histórico de movimentações;
+- persistência local dos dados.
+
+## Organização do JavaScript
+
+- `inventory.js`: produtos, movimentações, validações e regras de saldo;
+- `storage.js`: leitura e gravação no `localStorage`;
+- `app.js`: formulários e atualização da interface.
 
 ## Como executar
 
-1. Acesse a pasta `src`.
-2. Abra o arquivo `index.html` em um navegador atual.
-3. Preencha o formulário e selecione **Cadastrar produto**.
-4. Na seção **Registrar entrada**, selecione o produto e informe a quantidade recebida.
-5. Confirme a atualização do saldo e o registro no histórico.
+1. Abra `src/index.html` em um navegador atual.
+2. Cadastre um produto.
+3. Registre entradas ou saídas selecionando o produto.
+4. Consulte o saldo e o histórico.
 
-Os produtos ficam armazenados somente no navegador e no dispositivo utilizados. Esta persistência é adequada ao protótipo inicial e poderá ser substituída durante a evolução da aplicação.
-
+A futura integração com Flask e SQLite substituirá a persistência local sem exigir que as regras da interface sejam recriadas.

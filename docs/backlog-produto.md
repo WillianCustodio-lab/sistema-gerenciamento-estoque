@@ -1,51 +1,43 @@
 # Backlog do Produto
 
-**GitHub Project:** https://github.com/users/WillianCustodio-lab/projects/1
+## Organização atual
 
-## Priorização
+O quadro principal utiliza quatro estados: **A fazer**, **Em andamento**, **Em revisão** e **Concluído**. As prioridades atuais são **Alta**, **Média** e **Baixa**. Referências antigas a P0, P1 e P2 permanecem apenas no histórico das sprints anteriores.
 
-Os itens são priorizados por nível de importância:
-
-- **P0:** prioridade máxima;
-- **P1:** alta prioridade;
-- **P2:** prioridade normal.
-
-## Estados do quadro
-
-- **Backlog:** item ainda não iniciado;
-- **Ready:** item preparado para ser iniciado;
-- **Em andamento:** item em desenvolvimento;
-- **Concluído:** item finalizado;
-- **Novas ideias:** possibilidade de evolução ainda não priorizada.
-
-## Última atualização
-
-**29/09/2026**
-
-## Sprint corrente — Sprint 3
-
-O objetivo da Sprint 3 foi representar a estrutura e o comportamento da aplicação e evoluir um fluxo relacionado aos requisitos.
-
-### Itens concluídos
-
-| Issue | Item | Prioridade | Resultado |
-|---|---|---|---|
-| `#26` | Elaborar os modelos da Sprint 3 | P0 | Modelo comportamental, modelo estrutural e descrições produzidos. |
-| `#27` | Relacionar requisitos, modelos e código | P0 | Matriz de rastreabilidade e correspondência com o código registradas. |
-| `#28` | Consolidar a entrega da Sprint 3 | P0 | Documentação e evidências da sprint organizadas. |
-| `#3` | Registrar entradas de produtos | P1 | Fluxo de entrada implementado com atualização do saldo e histórico. |
-
-### Próximos itens prioritários
+## Sprint corrente — Sprint 4
 
 | Issue | Item | Prioridade | Estado |
 |---|---|---|---|
-| `#4` | Registrar saídas de produtos | P1 | Backlog |
-| `#5` | Consultar movimentações de estoque | P1 | Backlog |
+| `#29` | Refatorar responsabilidades e registrar decisões de projeto | Alta | Concluído |
+| `#4` | Registrar saídas de produtos | Alta | Concluído |
+| `#5` | Consultar entradas e saídas | Alta | Concluído |
+
+## Escopo do MVP
+
+| Issue | Funcionalidade | Situação |
+|---|---|---|
+| `#1` | Cadastrar produtos | Concluído |
+| `#2` | Consultar produtos e quantidades | Concluído |
+| `#3` | Registrar entradas | Concluído |
+| `#4` | Registrar saídas com validação de saldo | Concluído |
+| `#5` | Consultar movimentações | Concluído |
+
+Autenticação, múltiplos perfis, fornecedores, lotes, indicadores avançados, localização física e integrações permanecem como evoluções futuras. Esses itens não fazem parte da visão principal do MVP.
+
+## Próximas entregas
+
+| Sprint | Foco | Prioridade |
+|---|---|---|
+| Sprint 5 | Aplicar um padrão de projeto a um problema real | Alta |
+| Sprint 6 | Integrar Flask e SQLite | Alta |
+| Sprint 7 | Testar as funcionalidades principais | Alta |
+| Sprint 8 | Validar, corrigir e consolidar a entrega final | Alta |
 
 ## Histórico de refinamento
 
-| Sprint | Alteração | Motivo |
-|---|---|---|
-| Sprint 1 | Criação e organização inicial do Product Backlog. | Definir o produto e estruturar o trabalho no GitHub Project. |
-| Sprint 2 | Inclusão dos requisitos e atualização das funcionalidades de cadastro e consulta. | Registrar o incremento da aplicação e preparar os próximos fluxos do estoque. |
-| Sprint 3 | Inclusão dos modelos, da rastreabilidade e do fluxo de registro de entrada. | Relacionar requisitos, modelos e código em um incremento demonstrável. |
+| Sprint | Alteração |
+|---|---|
+| Sprint 1 | Organização inicial do Product Backlog. |
+| Sprint 2 | Definição dos requisitos e primeiro fluxo web. |
+| Sprint 3 | Modelagem, rastreabilidade e registro de entradas. |
+| Sprint 4 | Separação de responsabilidades, saídas e histórico completo. |

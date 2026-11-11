@@ -21,9 +21,9 @@ Os requisitos foram identificados a partir de uma pesquisa sobre as principais d
 | `RF-01` | Cadastrar produtos | O sistema deve permitir que o supervisor cadastre um produto com informações válidas. | Alta | `US-01 / #1` | Implementado inicialmente |
 | `RF-02` | Consultar produtos | O sistema deve permitir que o supervisor e o auxiliar consultem os produtos cadastrados e suas quantidades. | Alta | `US-02 / #2` | Implementado inicialmente |
 | `RF-03` | Registrar entradas | O sistema deve permitir que o supervisor e o auxiliar registrem a entrada manual de produtos. | Alta | `US-03 / #3` | Implementado |
-| `RF-04` | Registrar saídas | O sistema deve permitir que o supervisor e o auxiliar registrem a saída manual de produtos. | Alta | `US-04 / #4` | Planejado |
-| `RF-05` | Consultar movimentações | O sistema deve permitir que o supervisor e o auxiliar consultem as entradas e saídas registradas. | Alta | `US-05 / #5` | Implementado parcialmente |
-| `RF-06` | Controlar usuários | O sistema deve permitir que o administrador gerencie usuários e atribua perfis de acesso. | Alta | Não vinculada | Planejado |
+| `RF-04` | Registrar saídas | O sistema deve permitir que o supervisor e o auxiliar registrem a saída manual de produtos. | Alta | `US-04 / #4` | Implementado |
+| `RF-05` | Consultar movimentações | O sistema deve permitir que o supervisor e o auxiliar consultem as entradas e saídas registradas. | Alta | `US-05 / #5` | Implementado |
+| `RF-06` | Controlar usuários | O sistema deve permitir que o administrador gerencie usuários e atribua perfis de acesso. | Alta | Não vinculada | Evolução futura |
 
 ## 4. Requisitos não funcionais
 
@@ -122,6 +122,7 @@ Como **supervisor ou auxiliar**, quero **consultar as movimentações**, para **
 |---|---|---|
 | Importação automática de movimentações | As entradas e saídas serão registradas manualmente na aplicação. | Integração com outros sistemas. |
 | Representação tridimensional do estoque | Não faz parte das funcionalidades iniciais definidas para o produto. | Visualização da localização dos produtos em 3D. |
+| Autenticação e múltiplos perfis | O MVP prioriza o fluxo de produtos e movimentações. | Implementação posterior do `RF-06`. |
 
 ## 8. Histórico de alterações
 
@@ -129,3 +130,4 @@ Como **supervisor ou auxiliar**, quero **consultar as movimentações**, para **
 |---|---|---|---|---|
 | Sprint 2 | `RF-01` a `RF-06` | Primeira definição dos requisitos da aplicação. | Transformar a visão inicial em comportamento verificável. | `#25` |
 | Sprint 3 | `RF-03`, `RF-05` | Implementação do registro e da consulta de entradas. | Evoluir um fluxo representado nos modelos da Sprint 3. | `#3` |
+| Sprint 4 | `RF-04`, `RF-05`, `RF-06` | Implementação de saídas e histórico completo; controle de usuários movido para evolução futura. | Manter o MVP concentrado em produtos e movimentações. | `#4`, `#5`, `#29` |
