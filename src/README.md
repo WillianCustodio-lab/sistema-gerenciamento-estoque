@@ -4,9 +4,10 @@ A interface utiliza HTML, CSS e JavaScript puro. Nesta etapa, os dados permanece
 
 ## Funcionalidades disponíveis
 
-- cadastro e consulta de produtos;
+- visão geral com saldos e movimentações recentes;
+- cadastro em modal e pesquisa de produtos por nome ou código;
 - validação de código duplicado e quantidades;
-- registro de entradas e saídas;
+- formulário unificado de entradas e saídas com saldo disponível;
 - rejeição de saída superior ao saldo;
 - histórico de movimentações;
 - persistência local dos dados.
@@ -14,14 +15,14 @@ A interface utiliza HTML, CSS e JavaScript puro. Nesta etapa, os dados permanece
 ## Organização do JavaScript
 
 - `inventory.js`: produtos, movimentações, validações e regras de saldo;
-- `storage.js`: leitura e gravação no `localStorage`;
+- `storage.js`: Repository do `localStorage`, com saldo e histórico gravados juntos;
 - `app.js`: formulários e atualização da interface.
 
 ## Como executar
 
 1. Abra `src/index.html` em um navegador atual.
-2. Cadastre um produto.
-3. Registre entradas ou saídas selecionando o produto.
-4. Consulte o saldo e o histórico.
+2. Em **Produtos**, cadastre um produto e consulte seu saldo.
+3. Em **Movimentações**, selecione o tipo, o produto e a quantidade.
+4. Confira o histórico e os indicadores da **Visão geral**.
 
 A futura integração com Flask e SQLite substituirá a persistência local sem exigir que as regras da interface sejam recriadas.
