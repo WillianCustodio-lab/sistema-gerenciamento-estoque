@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Controle de Estoque</title>
   <link rel="stylesheet" href="css/styles.css">
-  <script src="js/inventory.js" defer></script>
-  <script src="js/storage.js" defer></script>
+  <script src="js/api.js" defer></script>
   <script src="js/app.js" defer></script>
 </head>
 <body>
@@ -26,7 +25,10 @@
     </div>
   </header>
   <main class="shell">
-    <p id="startup-error" class="message error" role="alert" hidden></p>
+    <div id="load-error-panel" hidden>
+      <p id="load-error" class="message error" role="alert"></p>
+      <button id="retry-load" type="button">Atualizar estoque</button>
+    </div>
     <section id="visao-geral" aria-labelledby="overview-title">
       <div class="page-heading">
         <h1 id="overview-title" tabindex="-1">Visão geral</h1>
@@ -55,7 +57,7 @@
     <section id="produtos" aria-labelledby="products-title" hidden>
       <div class="page-heading heading-actions">
         <div><h1 id="products-title" tabindex="-1">Produtos</h1><p>Consulte os itens cadastrados e seus saldos.</p></div>
-        <button id="new-product" class="primary" type="button"><span aria-hidden="true">+</span> Novo produto</button>
+        <button id="new-product" class="primary" type="button" disabled><span aria-hidden="true">+</span> Novo produto</button>
       </div>
       <p id="product-notice" class="message success" role="status"></p>
       <section class="panel" aria-labelledby="product-list-title">
@@ -84,7 +86,7 @@
         <h2 id="movement-form-title">Registrar movimentação</h2>
         <p id="movement-no-products" class="help" hidden>Para movimentar o estoque, <a href="#produtos">cadastre um produto</a>.</p>
         <form id="movement-form">
-          <fieldset id="movement-fields" class="movement-fields">
+          <fieldset id="movement-fields" class="movement-fields" disabled>
             <label>Tipo
               <select id="movement-type" name="type"><option>Entrada</option><option>Saída</option></select>
             </label>
@@ -125,7 +127,7 @@
       <p id="product-message" class="message" role="alert"></p>
       <div class="dialog-actions">
         <button id="cancel-product" type="button">Cancelar</button>
-        <button class="primary" type="submit">Cadastrar</button>
+        <button id="submit-product" class="primary" type="submit">Cadastrar</button>
       </div>
     </form>
   </dialog>

@@ -1,5 +1,4 @@
-const { InventoryError, InventoryService } = window.InventoryDomain;
-const { LocalStorageRepository } = window.InventoryStorage;
+const api = window.InventoryApi;
 const byId = (id) => document.getElementById(id);
 const numberFormat = new Intl.NumberFormat("pt-BR");
 const dateFormat = new Intl.DateTimeFormat("pt-BR", { dateStyle: "short", timeStyle: "short" });
@@ -69,7 +68,11 @@ function renderMovementTable(prefix, movements) {
 }
 
 function setupInventory() {
-  const service = new InventoryService(new LocalStorageRepository());
+  let products = [];
+  let movements = [];
+  let loading = false;
+  let saving = false;
+  let hasCurrentData = false;
   const productDialog = byId("product-dialog");
   const productForm = byId("product-form");
   const productSearch = byId("product-search");
@@ -77,7 +80,6 @@ function setupInventory() {
   const movementProduct = byId("movement-product");
 
   function renderProducts() {
-    const products = service.getProducts();
     const query = searchKey(productSearch.value);
     const matches = products.filter(({ code, name }) =>
       searchKey(code).includes(query) || searchKey(name).includes(query),
@@ -98,15 +100,13 @@ function setupInventory() {
   }
 
   function updateBalance() {
-    const product = service.getProducts().find(({ code }) => code === movementProduct.value);
+    const product = products.find(({ code }) => code === movementProduct.value);
     byId("movement-balance").textContent = product
       ? "Saldo disponível: " + numberFormat.format(product.quantity)
       : "";
   }
 
   function render() {
-    const products = service.getProducts();
-    const movements = service.getMovements();
     byId("total-products").textContent = numberFormat.format(products.length);
     byId("total-units").textContent = numberFormat.format(products.reduce((sum, product) => sum + product.quantity, 0));
     byId("total-out").textContent = numberFormat.format(products.filter((product) => product.quantity === 0).length);
@@ -119,16 +119,66 @@ function setupInventory() {
       ...products.map(({ name, code }) => new Option(name + " (" + code + ")", code)),
     );
     if (products.some(({ code }) => code === selectedCode)) movementProduct.value = selectedCode;
-    byId("movement-fields").disabled = products.length === 0;
     byId("movement-no-products").hidden = products.length !== 0;
     updateBalance();
   }
 
-  function reportError(element, error) {
-    const message = error instanceof InventoryError
-      ? error.message
-      : "Não foi possível salvar os dados. Confira o armazenamento do navegador e tente novamente.";
-    setMessage(element, message, "error");
+  function updateControls() {
+    const disabled = !hasCurrentData || loading || saving;
+    byId("new-product").disabled = disabled;
+    byId("submit-product").disabled = disabled;
+    byId("cancel-product").disabled = saving;
+    byId("movement-fields").disabled = disabled || products.length === 0;
+    byId("retry-load").disabled = loading || saving;
+  }
+
+  async function refresh(errorMessage) {
+    loading = true;
+    updateControls();
+    try {
+      ({ products, movements } = await api.load());
+      hasCurrentData = true;
+      render();
+      byId("load-error-panel").hidden = true;
+    } catch {
+      hasCurrentData = false;
+      byId("load-error").textContent = errorMessage;
+      byId("load-error-panel").hidden = false;
+    } finally {
+      loading = false;
+      updateControls();
+    }
+  }
+
+  const refreshMessage = "Não foi possível consultar o estoque. Verifique o servidor Flask e atualize o estoque.";
+  byId("retry-load").addEventListener("click", () => refresh(refreshMessage));
+  productDialog.addEventListener("cancel", (event) => {
+    if (saving) event.preventDefault();
+  });
+
+  async function save(write, onSaved, errorElement) {
+    if (saving || loading || !hasCurrentData) return;
+    saving = true;
+    updateControls();
+    try {
+      const result = await write();
+      await refresh("Operação registrada. Atualize o estoque para obter os dados mais recentes.");
+      onSaved(result);
+    } catch (error) {
+      if (error instanceof api.InventoryApiError) {
+        await refresh(refreshMessage);
+        setMessage(errorElement, error.message, "error");
+      } else {
+        await refresh("Não foi possível confirmar a operação. Atualize o estoque antes de tentar de novo.");
+        setMessage(errorElement, "Confira a lista ou o histórico antes de repetir a operação.", "error");
+      }
+    } finally {
+      saving = false;
+      updateControls();
+      if (!productDialog.open && errorElement === byId("product-message")) {
+        byId("new-product").focus();
+      }
+    }
   }
 
   productSearch.addEventListener("input", renderProducts);
@@ -143,44 +193,27 @@ function setupInventory() {
 
   productForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    try {
-      service.registerProduct(Object.fromEntries(new FormData(productForm)));
-    } catch (error) {
-      reportError(byId("product-message"), error);
-      return;
-    }
-    productSearch.value = "";
-    render();
-    productDialog.close();
-    setMessage(byId("product-notice"), "Produto cadastrado com sucesso.", "success");
+    const data = Object.fromEntries(new FormData(productForm));
+    data.quantity = Number(data.quantity);
+    void save(() => api.registerProduct(data), () => {
+      productSearch.value = "";
+      renderProducts();
+      productDialog.close();
+      setMessage(byId("product-notice"), "Produto cadastrado com sucesso.", "success");
+    }, byId("product-message"));
   });
 
   movementForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const { type, productCode, quantity } = Object.fromEntries(new FormData(movementForm));
-    let product;
-    try {
-      ({ product } = service.registerMovement(type, productCode, quantity));
-    } catch (error) {
-      reportError(byId("movement-message"), error);
-      return;
-    }
-    render();
-    movementForm.elements.namedItem("quantity").value = "1";
-    setMessage(byId("movement-message"), type + " registrada para " + product.name + ".", "success");
+    void save(() => api.registerMovement({ type, productCode, quantity: Number(quantity) }), (movement) => {
+      movementForm.elements.namedItem("quantity").value = "1";
+      setMessage(byId("movement-message"), type + " registrada para " + movement.productName + ".", "success");
+    }, byId("movement-message"));
   });
 
-  render();
+  void refresh(refreshMessage);
 }
 
 setupNavigation();
-try {
-  setupInventory();
-} catch (error) {
-  const message = byId("startup-error");
-  message.hidden = false;
-  message.textContent = "Não foi possível carregar os dados do estoque. Confira o armazenamento do navegador.";
-  byId("new-product").disabled = true;
-  byId("movement-fields").disabled = true;
-  console.error(error);
-}
+setupInventory();
