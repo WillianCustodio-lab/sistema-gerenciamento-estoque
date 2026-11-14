@@ -42,3 +42,15 @@ class ApiTest(unittest.TestCase):
         stock = self.client.get("/api/inventory").json
         self.assertEqual(stock["movements"], [])
         self.assertEqual(stock["products"][0]["quantity"], 1)
+
+    def test_seed_demo_is_explicit_and_preserves_existing_data(self):
+        app = create_app(self.config)
+        runner = app.test_cli_runner()
+        self.assertEqual(self.client.get("/api/inventory").json["products"], [])
+        result = runner.invoke(args=["seed-demo"])
+        self.assertEqual(result.exit_code, 0, result.output)
+        state = self.client.get("/api/inventory").json
+        self.assertEqual(len(state["products"]), 3)
+        self.assertEqual(state["movements"], [])
+        self.assertEqual(runner.invoke(args=["seed-demo"]).exit_code, 0)
+        self.assertEqual(self.client.get("/api/inventory").json, state)

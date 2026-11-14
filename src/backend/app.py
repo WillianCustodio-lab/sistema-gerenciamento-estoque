@@ -4,6 +4,7 @@ import sqlite3
 from flask import Flask, jsonify, request, send_from_directory
 
 from .database import initialize
+from .demo import seed_demo
 from .inventory import InventoryError, InventoryRepository
 
 FRONTEND = Path(__file__).resolve().parents[1]
@@ -19,6 +20,11 @@ def create_app(config=None):
         app.config.update(config)
     initialize(app.config["DATABASE"])
     repository = InventoryRepository(app.config["DATABASE"])
+
+    @app.cli.command("seed-demo")
+    def seed():
+        count = seed_demo(app.config["DATABASE"])
+        print(f"{count} produtos de demonstração inseridos." if count else "O estoque já tem produtos. Nenhum dado foi alterado.")
 
     @app.get("/")
     def index():
