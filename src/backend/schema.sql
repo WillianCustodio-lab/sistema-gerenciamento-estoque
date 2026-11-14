@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS products (
+    code TEXT PRIMARY KEY NOT NULL,
+    name TEXT NOT NULL,
+    category TEXT NOT NULL DEFAULT '',
+    quantity INTEGER NOT NULL CHECK (quantity BETWEEN 0 AND 9007199254740991)
+) STRICT;
+
+CREATE TABLE IF NOT EXISTS movements (
+    id INTEGER PRIMARY KEY,
+    product_code TEXT NOT NULL REFERENCES products(code),
+    type TEXT NOT NULL CHECK (type IN ('Entrada', 'Saída')),
+    quantity INTEGER NOT NULL CHECK (quantity BETWEEN 1 AND 9007199254740991),
+    created_at TEXT NOT NULL
+) STRICT;
