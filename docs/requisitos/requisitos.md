@@ -132,3 +132,4 @@ Como **supervisor ou auxiliar**, quero **consultar as movimentações**, para **
 | Sprint 3 | `RF-03`, `RF-05` | Implementação do registro e da consulta de entradas. | Evoluir um fluxo representado nos modelos da Sprint 3. | `#3` |
 | Sprint 4 | `RF-04`, `RF-05`, `RF-06` | Implementação de saídas e histórico completo; controle de usuários movido para evolução futura. | Manter o MVP concentrado em produtos e movimentações. | `#4`, `#5`, `#29` |
 | Sprint 5 | `RF-01` a `RF-05`, `RNF-05`, `RNF-06` | Navegação, pesquisa, movimentação unificada e persistência conjunta. | Facilitar a operação e evitar gravações parciais. | `#16`, `#30`, `#31` |
+| Sprint 6 | `RF-01` a `RF-05`, `RNF-05`, `RNF-06`, `RNF-08` | Integração Flask e SQLite, com saldo e histórico gravados na mesma transação. | Centralizar os dados e manter o estoque consistente entre sessões. | `#22`, `#23`, `#24`, `#33` |

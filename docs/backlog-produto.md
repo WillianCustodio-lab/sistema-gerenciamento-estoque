@@ -2,14 +2,16 @@
 
 ## Organização atual
 
-O quadro principal utiliza quatro estados: **A fazer**, **Em andamento**, **Em revisão** e **Concluído**. As prioridades atuais são **Alta**, **Média** e **Baixa**. Referências antigas a P0, P1 e P2 permanecem apenas no histórico das sprints anteriores.
+O quadro principal utiliza quatro estados: **A fazer**, **Em andamento**, **Em revisão** e **Concluído**.
 
-## Sprint corrente — Sprint 5
+## Sprint corrente — Sprint 6
 
-| Issue | Item | Prioridade | Estado |
-|---|---|---|---|
-| `#30` | Modernizar a interface e os fluxos de estoque, incluindo a pesquisa da #16 | Alta | Concluído |
-| `#31` | Consolidar o Repository e testar a persistência | Alta | Concluído |
+| Issue | Item | Estado |
+|---|---|---|
+| `#22` | Integrar a interface à API Flask | Concluído |
+| `#23` | Criar o banco SQLite e o povoamento opcional de produtos | Concluído |
+| `#24` | Garantir consistência do saldo e do histórico | Concluído |
+| `#33` | Documentar a arquitetura e consolidar a entrega | Concluído |
 
 ## Escopo do MVP
 
@@ -25,11 +27,10 @@ Autenticação, múltiplos perfis, fornecedores, lotes, indicadores avançados, 
 
 ## Próximas entregas
 
-| Sprint | Foco | Prioridade |
-|---|---|---|
-| Sprint 6 | Integrar Flask e SQLite | Alta |
-| Sprint 7 | Testar as funcionalidades principais | Alta |
-| Sprint 8 | Validar, corrigir e consolidar a entrega final | Alta |
+| Sprint | Foco |
+|---|---|
+| Sprint 7 | Testar as funcionalidades principais |
+| Sprint 8 | Validar, corrigir e consolidar a entrega final |
 
 ## Histórico de refinamento
 
@@ -40,3 +41,4 @@ Autenticação, múltiplos perfis, fornecedores, lotes, indicadores avançados, 
 | Sprint 3 | Modelagem, rastreabilidade e registro de entradas. |
 | Sprint 4 | Separação de responsabilidades, saídas e histórico completo. |
 | Sprint 5 | Interface administrativa, pesquisa, indicadores básicos e persistência conjunta de saldo e histórico. |
+| Sprint 6 | Interface integrada à API Flask, SQLite, transações de estoque e documentação da arquitetura. |

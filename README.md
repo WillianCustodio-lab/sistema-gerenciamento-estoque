@@ -36,6 +36,10 @@ Pessoas responsáveis pelo cadastro, acompanhamento e controle de produtos em es
 | **Registro de saídas** | Registrar saídas de produtos do estoque. |
 | **Consulta de movimentações** | Consultar as movimentações de entrada e saída registradas. |
 
+## Executar a aplicação
+
+A versão atual é executada com Flask e SQLite. Consulte o [guia de execução](src/README.md) e a [arquitetura](docs/arquitetura/arquitetura.md).
+
 ## Equipe
 
 | Integrante | GitHub |

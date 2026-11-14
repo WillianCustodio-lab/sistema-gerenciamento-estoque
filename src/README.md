@@ -1,28 +1,28 @@
 # Aplicação web
 
-A interface utiliza HTML, CSS e JavaScript puro. Nesta etapa, os dados permanecem no `localStorage` do navegador.
-
-## Funcionalidades disponíveis
-
-- visão geral com saldos e movimentações recentes;
-- cadastro em modal e pesquisa de produtos por nome ou código;
-- validação de código duplicado e quantidades;
-- formulário unificado de entradas e saídas com saldo disponível;
-- rejeição de saída superior ao saldo;
-- histórico de movimentações;
-- persistência local dos dados.
-
-## Organização do JavaScript
-
-- `inventory.js`: produtos, movimentações, validações e regras de saldo;
-- `storage.js`: Repository do `localStorage`, com saldo e histórico gravados juntos;
-- `app.js`: formulários e atualização da interface.
+O Flask serve a interface HTML, CSS e JavaScript e a API na mesma origem. O SQLite armazena produtos, saldos e movimentações.
 
 ## Como executar
 
-1. Abra `src/index.html` em um navegador atual.
-2. Em **Produtos**, cadastre um produto e consulte seu saldo.
-3. Em **Movimentações**, selecione o tipo, o produto e a quantidade.
-4. Confira o histórico e os indicadores da **Visão geral**.
+A partir da raiz, com Python 3.11 ou mais recente e SQLite 3.37 ou mais recente:
 
-A futura integração com Flask e SQLite substituirá a persistência local sem exigir que as regras da interface sejam recriadas.
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python -m pip install -r requirements.txt
+.\.venv\Scripts\python -m flask --app src.backend.app run
+```
+
+Abra `http://127.0.0.1:5000`. Em **Produtos**, cadastre ou pesquise um item. Em **Movimentações**, selecione o tipo, o produto e a quantidade. Confira o saldo no histórico e na **Visão geral**.
+
+O banco é criado em `instance/estoque.sqlite3`, na raiz do projeto. A Sprint 6 inicia com um banco vazio. Para consultar dados da Sprint 5, abra a versão antiga no mesmo navegador e endereço usados originalmente.
+
+## Demonstração e testes
+
+Com o servidor parado, é possível povoar uma base vazia com três produtos de exemplo. A operação preserva bases que já contêm produtos.
+
+```powershell
+.\.venv\Scripts\python -m flask --app src.backend.app seed-demo
+.\.venv\Scripts\python -m unittest discover -s tests -v
+```
+
+Consulte a [arquitetura](../docs/arquitetura/arquitetura.md) para ver os componentes e o contrato da API.
