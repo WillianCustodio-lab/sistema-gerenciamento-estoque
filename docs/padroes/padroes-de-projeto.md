@@ -16,9 +16,9 @@ Foi adotada a terceira alternativa. O serviço continua responsável pelas regra
 
 | Participante | Arquivo | Responsabilidade |
 |---|---|---|
-| Composição | [app.js](../../src/js/app.js) | Cria o repositório local e o fornece ao serviço. |
-| Cliente do Repository | [inventory.js](../../src/js/inventory.js) | Valida a operação, prepara o novo estado e o confirma após a gravação. |
-| Repository concreto | [storage.js](../../src/js/storage.js) | Implementa `load()` e `save({ products, movements })` sobre uma chave local. |
+| Interface | [app.js](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/blob/sprint-05/src/js/app.js) | Cria o repositório e o fornece ao serviço. |
+| Serviço de estoque | [inventory.js](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/blob/sprint-05/src/js/inventory.js) | Valida e confirma a operação após a gravação. |
+| Repositório local | [storage.js](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/blob/sprint-05/src/js/storage.js) | Lê e grava o estoque em uma chave do navegador. |
 
 Em uma movimentação, a interface chama o serviço, o serviço prepara o saldo e o registro, e o Repository persiste ambos juntos. Se a gravação for rejeitada, o serviço mantém o estado anterior.
 
@@ -26,8 +26,8 @@ O primeiro carregamento sem o novo registro lê as duas chaves da Sprint 4. A pr
 
 ## Benefícios e limites
 
-A mudança preserva os dados existentes e elimina a gravação parcial causada por duas chamadas sequenciais. Em troca, o conjunto inteiro é serializado a cada alteração. O armazenamento continua restrito ao navegador e sujeito a sobrescrita entre abas concorrentes. Na Sprint 6, a API e uma transação SQLite devem assumir a consistência das movimentações compartilhadas.
+A alteração da Sprint 5 evitou gravações parciais e preservou a leitura dos dados existentes. Cada operação gravava todo o estoque, que continuava limitado ao navegador. Na Sprint 6, o controle das transações passou ao SQLite.
 
 ## Evidência
 
-Os [testes do Repository](../../tests/inventory.test.cjs) verificam dados herdados, gravação única, recarga e preservação do estado após falha simulada. Execute `node --test tests/inventory.test.cjs` a partir da raiz. Implementação registrada na [issue #31](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/31) e no [commit da persistência](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/commit/d514cfa1a8de78dce970d49731447672e4f856cb).
+Na versão `sprint-05`, execute `node --test tests/inventory.test.cjs`. Os [testes](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/blob/sprint-05/tests/inventory.test.cjs) cobrem leitura dos dados antigos, recarga e falha de gravação. A implementação está na [issue #31](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/31).

@@ -35,7 +35,7 @@ Autenticação, múltiplos perfis, fornecedores, lotes, indicadores avançados, 
 |---|---|
 | Sprint 1 | Organização inicial do Product Backlog. |
 | Sprint 2 | Definição dos requisitos e primeiro fluxo web. |
-| Sprint 3 | Modelagem, rastreabilidade e registro de entradas. |
+| Sprint 3 | Modelos e registro de entradas. |
 | Sprint 4 | Separação de responsabilidades, saídas e histórico completo. |
 | Sprint 5 | Interface administrativa, pesquisa, indicadores básicos e persistência conjunta de saldo e histórico. |
 | Sprint 6 | Interface integrada à API Flask, SQLite, transações de estoque e documentação da arquitetura. |

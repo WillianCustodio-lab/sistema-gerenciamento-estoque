@@ -1,10 +1,6 @@
 # Modelagem da aplicação
 
-> **Artefato central da Sprint 3.** Os modelos representam a estrutura e o fluxo de registro de entrada implementado no Sistema de Gerenciamento de Estoque.
-
-## 1. Escopo da modelagem
-
-A modelagem considera o cadastro e a consulta de produtos já existentes e detalha o novo fluxo de registro de entradas. O objetivo é demonstrar como uma entrada válida atualiza a quantidade disponível e gera uma movimentação para consulta.
+Os diagramas mostram como produtos e movimentações foram organizados na Sprint 3. As referências de código apontam para a versão daquela sprint.
 
 ## 2. Modelo comportamental
 
@@ -33,29 +29,16 @@ O incremento utiliza duas estruturas principais:
 
 Um produto pode possuir várias movimentações. No código, essas estruturas são representadas pelas classes `Product` e `Movement` em `src/js/app.js`.
 
-## 4. Correspondência entre modelo e código
+## Relação com requisitos e código
 
-| Elemento modelado | Responsabilidade | Código correspondente |
+| Requisito | Issue | Onde aparece |
 |---|---|---|
-| `Produto` | Manter os dados e atualizar o saldo. | Classe `Product` em `src/js/app.js`. |
-| `Movimentação` | Registrar a entrada realizada. | Classe `Movement` em `src/js/app.js`. |
-| Validação da entrada | Impedir produto inexistente ou quantidade inválida. | Tratamento do formulário `entry-form` em `src/js/app.js`. |
-| Persistência | Manter produtos e movimentações após atualizar a página. | `localStorage` em `src/js/app.js`. |
-| Interface do fluxo | Receber os dados e apresentar o resultado. | `src/index.html` e `src/css/styles.css`. |
+| RF-01 e RF-02 | #1 e #2 | Cadastro e consulta de produtos no modelo de domínio. |
+| RF-03 e RF-05 | #3 e #5 | Fluxo de entrada e consulta de movimentações. |
+| RNF-05 e RNF-06 | #3 | Validação da entrada e persistência após recarregar. |
 
-## 5. Rastreabilidade
+O [código da Sprint 3](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/blob/sprint-03/src/js/app.js) reúne os formulários, as classes `Product` e `Movement` e a persistência. Os resultados estão na [verificação do fluxo](evidencia-execucao.md).
 
-| Requisito | História/Issue | Modelo | Código | Evidência |
-|---|---|---|---|---|
-| `RF-01` | `US-01 / #1` | Entidade `Produto` | Cadastro em `src/js/app.js` | Produto incluído na consulta. |
-| `RF-02` | `US-02 / #2` | Entidade `Produto` | Lista em `src/index.html` e `src/js/app.js` | Quantidade apresentada na tabela. |
-| `RF-03` | `US-03 / #3` | Fluxo de entrada e entidades `Produto` e `Movimentação` | Formulário e processamento em `src/` | Saldo atualizado e entrada registrada no histórico. |
-| `RF-05` | `US-05 / #5` | Entidade `Movimentação` | Histórico em `src/index.html` e `src/js/app.js` | Consulta parcial das entradas registradas. |
-| `RNF-05` | `US-03 / #3` | Decisão de validação no fluxo | Validação anterior à persistência | Entrada inválida não altera os dados. |
-| `RNF-06` | `US-03 / #3` | Persistência do fluxo | Chaves `estoque.produtos` e `estoque.movimentacoes` | Dados mantidos após atualizar a página. |
+## Limites da sprint
 
-## 6. Decisões e limites
-
-- A modelagem representa somente o incremento atual e não antecipa a arquitetura definitiva.
-- O histórico desta sprint apresenta entradas. As saídas continuam planejadas para evolução posterior.
-- A persistência local atende ao protótipo atual e poderá ser substituída quando a aplicação receber API e banco de dados.
+Nessa versão, o histórico apresentava entradas e os dados ficavam no navegador. As saídas chegaram na Sprint 4. A API e o banco passaram a ser usados na Sprint 6.
