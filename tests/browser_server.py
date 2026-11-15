@@ -1,4 +1,4 @@
-"""Servidor Flask de teste com porta livre e banco descartável."""
+"""Inicia o Flask com um banco temporário para os testes no navegador."""
 from pathlib import Path
 import sys
 from tempfile import TemporaryDirectory

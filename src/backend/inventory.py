@@ -11,13 +11,15 @@ class InventoryError(Exception):
         self.status = status
 
 
-def read_text(data, key, limit, *, required=True):
+def read_text(data, key, label, limit, *, required=True):
     value = data.get(key, "")
     if not isinstance(value, str):
-        raise InventoryError("Informe um texto válido para " + key + ".")
+        raise InventoryError(f"Informe o campo {label} como texto.")
     value = value.strip()
-    if (required and not value) or len(value) > limit:
-        raise InventoryError("Confira o campo " + key + ".")
+    if required and not value:
+        raise InventoryError(f"Preencha o campo {label}.")
+    if len(value) > limit:
+        raise InventoryError(f"O campo {label} deve ter até {limit} caracteres.")
     return value
 
 
@@ -48,9 +50,9 @@ class InventoryRepository:
             }
 
     def register_product(self, data):
-        code = read_text(data, "code", 60).upper()
-        name = read_text(data, "name", 160)
-        category = read_text(data, "category", 120, required=False)
+        code = read_text(data, "code", "Código", 60).upper()
+        name = read_text(data, "name", "Nome", 160)
+        category = read_text(data, "category", "Categoria", 120, required=False)
         quantity = read_quantity(data, 0)
         if len(code) > 60:
             raise InventoryError("O código deve ter até 60 caracteres.")
@@ -65,7 +67,7 @@ class InventoryRepository:
         return {"code": code, "name": name, "category": category, "quantity": quantity}
 
     def register_movement(self, data):
-        code = read_text(data, "productCode", 60).upper()
+        code = read_text(data, "productCode", "Código do produto", 60).upper()
         movement_type = data.get("type")
         if movement_type not in ("Entrada", "Saída"):
             raise InventoryError("Selecione Entrada ou Saída.")

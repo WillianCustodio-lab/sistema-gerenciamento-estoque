@@ -94,7 +94,7 @@ function setupInventory() {
     byId("product-count").textContent = matches.length + (matches.length === 1 ? " produto" : " produtos");
     byId("products-empty").textContent = products.length
       ? "Nenhum produto corresponde à pesquisa."
-      : "Nenhum produto cadastrado. Use Novo produto para começar.";
+      : "Nenhum produto cadastrado.";
     byId("products-empty").hidden = matches.length !== 0;
     byId("product-table").hidden = matches.length === 0;
   }
@@ -151,7 +151,7 @@ function setupInventory() {
     }
   }
 
-  const refreshMessage = "Não foi possível consultar o estoque. Verifique o servidor Flask e atualize o estoque.";
+  const refreshMessage = "Não foi possível carregar o estoque. Tente atualizar.";
   byId("retry-load").addEventListener("click", () => refresh(refreshMessage));
   productDialog.addEventListener("cancel", (event) => {
     if (saving) event.preventDefault();
@@ -163,14 +163,14 @@ function setupInventory() {
     updateControls();
     try {
       const result = await write();
-      await refresh("Operação registrada. Atualize o estoque para obter os dados mais recentes.");
+      await refresh("Operação registrada. Atualize o estoque para ver os dados atuais.");
       onSaved(result);
     } catch (error) {
       if (error instanceof api.InventoryApiError) {
         await refresh(refreshMessage);
         setMessage(errorElement, error.message, "error");
       } else {
-        await refresh("Não foi possível confirmar a operação. Atualize o estoque antes de tentar de novo.");
+        await refresh("Não foi possível confirmar a operação. Atualize o estoque antes de repetir.");
         setMessage(errorElement, "Confira a lista ou o histórico antes de repetir a operação.", "error");
       }
     } finally {
@@ -200,7 +200,7 @@ function setupInventory() {
       productSearch.value = "";
       renderProducts();
       productDialog.close();
-      setMessage(byId("product-notice"), "Produto cadastrado com sucesso.", "success");
+      setMessage(byId("product-notice"), "Produto cadastrado.", "success");
     }, byId("product-message"));
   });
 

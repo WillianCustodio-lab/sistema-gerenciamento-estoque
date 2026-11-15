@@ -34,7 +34,9 @@ class ApiTest(unittest.TestCase):
         product = {"code": "CX1", "name": "Caixa", "quantity": 1}
         self.assertEqual(self.client.post("/api/products", json=[]).status_code, 400)
         self.assertEqual(self.client.post("/api/products", json={**product, "quantity": True}).status_code, 400)
-        self.assertEqual(self.client.post("/api/products", json={**product, "name": " "}).status_code, 400)
+        invalid_name = self.client.post("/api/products", json={**product, "name": " "})
+        self.assertEqual(invalid_name.status_code, 400)
+        self.assertEqual(invalid_name.json["message"], "Preencha o campo Nome.")
         self.client.post("/api/products", json=product)
         self.assertEqual(self.client.post("/api/products", json=product).status_code, 409)
         for code, kind, quantity, status in (("XX", "Saída", 1, 404), ("CX1", "Saída", 2, 409), ("CX1", "Ajuste", 1, 400)):

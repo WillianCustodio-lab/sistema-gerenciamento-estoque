@@ -29,7 +29,6 @@ nav a:hover, nav a[aria-current] { color: var(--primary); }
 nav a[aria-current] { border-color: var(--primary); }
 main { padding-block: 2.1rem 3rem; }
 .page-heading { margin-bottom: 1.35rem; }
-.page-heading p { margin-top: .35rem; color: var(--muted); }
 .heading-actions { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
 .metrics > div, .panel { border: 1px solid var(--border); border-radius: .65rem; background: #fff; min-width: 0; }
