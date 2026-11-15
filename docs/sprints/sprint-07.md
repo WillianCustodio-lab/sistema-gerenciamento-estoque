@@ -2,7 +2,7 @@
 
 **Prazo:** 16/11/2026. **Execução:** 15/11/2026. [Versão da sprint](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/tree/sprint-07).
 
-Nove testes Python e dois no Chrome passaram. A cobertura inclui cadastro, pesquisa, movimentações, persistência e recuperação após falha de conexão. Na medição local, com até mil produtos na base, as operações da API levaram de 3 a 6 ms.
+Nove testes Python e dois no Chrome passaram. A API cumpriu o limite de tempo na medição local, e o erro no total de unidades foi corrigido.
 
 ## Entregas
 

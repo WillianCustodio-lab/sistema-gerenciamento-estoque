@@ -2,15 +2,11 @@
 
 ## Problema
 
-Na Sprint 4, o serviço já recebia um repositório. Porém, ao registrar uma movimentação, o adaptador gravava o saldo e o histórico em chaves separadas. Se a segunda gravação falhasse, o saldo poderia ser persistido sem o registro correspondente. O serviço também alterava o estado em memória antes de confirmar a gravação.
+Na Sprint 4, o saldo e o histórico eram gravados separadamente. Uma falha poderia deixar o saldo atualizado sem a movimentação correspondente.
 
 ## Alternativas e decisão
 
-- Manter duas gravações e compensar falhas exigiria restaurar dados já escritos com outra gravação que também poderia falhar.
-- Manter o contrato existente e adiar a mudança para o SQLite preservaria a possibilidade de divergência nesta versão.
-- Evoluir o **Repository** para carregar e salvar um único estado de estoque permite usar uma chamada a `localStorage.setItem` por alteração e confirmar o estado em memória após o sucesso.
-
-Foi adotada a terceira alternativa. O serviço continua responsável pelas regras de saldo, e o repositório cuida da representação persistida.
+Gravar separadamente exigiria desfazer alterações em caso de falha. Adiar a mudança para o SQLite deixaria o problema aberto. A Sprint 5 manteve o **Repository** e adotou uma gravação conjunta para saldo e histórico.
 
 ## Participantes e aplicação
 
@@ -20,13 +16,9 @@ Foi adotada a terceira alternativa. O serviço continua responsável pelas regra
 | Serviço de estoque | [inventory.js](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/blob/sprint-05/src/js/inventory.js) | Valida e confirma a operação após a gravação. |
 | Repositório local | [storage.js](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/blob/sprint-05/src/js/storage.js) | Lê e grava o estoque em uma chave do navegador. |
 
-Em uma movimentação, a interface chama o serviço, o serviço prepara o saldo e o registro, e o Repository persiste ambos juntos. Se a gravação for rejeitada, o serviço mantém o estado anterior.
-
-O primeiro carregamento sem o novo registro lê as duas chaves da Sprint 4. A primeira gravação bem-sucedida cria o registro consolidado e as próximas leituras passam a usá-lo.
-
 ## Benefícios e limites
 
-A alteração da Sprint 5 evitou gravações parciais e preservou a leitura dos dados existentes. Cada operação gravava todo o estoque, que continuava limitado ao navegador. Na Sprint 6, o controle das transações passou ao SQLite.
+A solução evitou gravações parciais e manteve a leitura dos dados antigos. Cada operação ainda gravava todo o estoque no navegador. As transações passaram ao SQLite na Sprint 6.
 
 ## Evidência
 

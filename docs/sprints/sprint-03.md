@@ -12,4 +12,4 @@ A sprint produziu o modelo de domínio e o diagrama de atividades. Na aplicaçã
 | [#3](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/3) e [#5](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/5) | Entrada e consulta inicial do histórico (RF-03 e RF-05) | [`9954757`](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/commit/9954757) e [verificação no navegador](../modelagem/evidencia-execucao.md) |
 | [#28](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/28) | Consolidação e tag da sprint | [`83ca351`](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/commit/83ca351) |
 
-O trabalho foi acompanhado no [GitHub Project](https://github.com/users/WillianCustodio-lab/projects/1). O fluxo foi verificado com saldo inicial 10 e entrada de 5. O saldo chegou a 15, e uma quantidade inválida foi rejeitada sem alterar os dados. As saídas foram tratadas na Sprint 4.
+O teste confirmou a atualização do saldo e o bloqueio de entradas inválidas. As saídas ficaram para a Sprint 4. [GitHub Project](https://github.com/users/WillianCustodio-lab/projects/1)
