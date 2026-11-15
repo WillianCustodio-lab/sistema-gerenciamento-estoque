@@ -1,8 +1,10 @@
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from time import perf_counter
 import unittest
 
 from src.backend.app import create_app
+from src.backend.database import connect
 
 
 class ApiTest(unittest.TestCase):
@@ -13,7 +15,7 @@ class ApiTest(unittest.TestCase):
         self.client = create_app(self.config).test_client()
 
     def test_serves_interface(self):
-        for path in ("/", "/css/styles.css", "/js/app.js"):
+        for path in ("/", "/css/styles.css", "/js/app.js", "/js/api.js"):
             with self.subTest(path=path), self.client.get(path) as response:
                 self.assertEqual(response.status_code, 200)
 
@@ -54,3 +56,32 @@ class ApiTest(unittest.TestCase):
         self.assertEqual(state["movements"], [])
         self.assertEqual(runner.invoke(args=["seed-demo"]).exit_code, 0)
         self.assertEqual(self.client.get("/api/inventory").json, state)
+
+    def test_stock_operations_with_one_thousand_products(self):
+        with connect(self.config["DATABASE"]) as db, db:
+            db.execute("BEGIN")
+            db.executemany(
+                "INSERT INTO products(code, name, quantity) VALUES (?, ?, ?)",
+                ((f"P{i:04d}", f"Produto {i}", 10) for i in range(1, 1000)),
+            )
+        cases = (
+            ("cadastro", self.client.post, "/api/products",
+             {"code": "P1000", "name": "Produto 1000", "quantity": 10}, 201),
+            ("entrada", self.client.post, "/api/movements",
+             {"productCode": "P1000", "type": "Entrada", "quantity": 5}, 201),
+            ("saída", self.client.post, "/api/movements",
+             {"productCode": "P1000", "type": "Saída", "quantity": 3}, 201),
+            ("consulta", self.client.get, "/api/inventory", None, 200),
+        )
+        for label, send, path, payload, status in cases:
+            with self.subTest(operation=label):
+                start = perf_counter()
+                response = send(path, **({"json": payload} if payload else {}))
+                elapsed = perf_counter() - start
+                self.assertEqual(response.status_code, status)
+                self.assertLessEqual(elapsed, 5, f"{label}: {elapsed:.3f}s")
+                print(f"\nRNF-01 | {label}: {elapsed:.3f}s (limite: 5s)")
+        stock = self.client.get("/api/inventory").json
+        self.assertEqual(len(stock["products"]), 1000)
+        self.assertEqual(stock["products"][-1]["quantity"], 12)
+        self.assertEqual(len(stock["movements"]), 2)
