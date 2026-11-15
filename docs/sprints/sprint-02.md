@@ -13,6 +13,6 @@ O grupo documentou atores, requisitos, regras de negócio e critérios de aceita
 
 ## Verificação
 
-Na versão `64d2258`, abra `src/index.html`, cadastre um produto e recarregue a página. Foram verificados cadastro válido, bloqueio de código duplicado, consulta e persistência.
+Na versão `64d2258`, abra `src/index.html`, cadastre um produto e recarregue a página. O teste no navegador confirmou cadastro, bloqueio de código duplicado e consulta após recarregar.
 
 O trabalho foi acompanhado no [GitHub Project](https://github.com/users/WillianCustodio-lab/projects/1). A etapa seguinte foi modelar e implementar as entradas.

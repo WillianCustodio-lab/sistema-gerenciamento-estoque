@@ -1,60 +1,41 @@
-<div align="center">
-
 # Sistema de Gerenciamento de Estoque
 
-**Trabalho Final · Engenharia de Software · 2026/2**
+Trabalho de Engenharia de Software · Sistemas de Informação · 2026/2
 
-Aplicação web proposta para centralizar o cadastro de produtos, a consulta das quantidades disponíveis e o registro de movimentações de entrada e saída de estoque.
+O Controle de Estoque reúne produtos, saldos e movimentações. Quem cuida do almoxarifado pode conferir o que está disponível e identificar as entradas e saídas que mudaram o saldo.
 
-[Visão geral](#visão-geral) · [Funcionalidades](#funcionalidades-previstas) · [Equipe](#equipe) · [Contexto acadêmico](#contexto-acadêmico)
+## Funcionalidades
 
-</div>
+- Cadastro e pesquisa de produtos por nome ou código.
+- Visão geral com total de produtos, unidades em estoque e itens sem saldo.
+- Registro de entradas e saídas. O sistema bloqueia retiradas acima do saldo.
+- Histórico com produto, tipo, quantidade e data de cada movimentação.
 
----
+## Como executar
 
-## Visão geral
+A interface usa HTML, CSS e JavaScript. O Flask serve as páginas e a API, e o SQLite guarda os dados. Na raiz do repositório, com Python 3.11+ e SQLite 3.37+, execute no PowerShell:
 
-### O problema
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python -m pip install -r requirements.txt
+.\.venv\Scripts\python -m flask --app src.backend.app run
+```
 
-O controle inadequado de estoque dificulta o acompanhamento da entrada e saída de produtos, podendo ocasionar falta ou excesso de itens, perdas e informações desatualizadas. A ausência de uma ferramenta centralizada também dificulta a visualização das quantidades disponíveis e a consulta das movimentações realizadas.
+Abra `http://127.0.0.1:5000`. O banco começa vazio. O [guia da aplicação](src/README.md) explica como inserir produtos de exemplo e rodar os testes.
 
-### A solução proposta
+## Documentação
 
-Desenvolver uma aplicação web para gerenciamento de estoque, permitindo cadastrar produtos, consultar suas quantidades e registrar movimentações de entrada e saída. A solução busca centralizar essas informações e apoiar uma gestão mais organizada, eficiente e confiável.
-
-### Público principal
-
-Pessoas responsáveis pelo cadastro, acompanhamento e controle de produtos em estoque.
-
-## Funcionalidades previstas
-
-| Funcionalidade prioritária | Descrição |
-| :--- | :--- |
-| **Cadastro de produtos** | Cadastrar produtos e suas informações básicas. |
-| **Consulta de estoque** | Consultar os produtos e suas quantidades disponíveis em estoque. |
-| **Registro de entradas** | Registrar entradas de produtos no estoque. |
-| **Registro de saídas** | Registrar saídas de produtos do estoque. |
-| **Consulta de movimentações** | Consultar as movimentações de entrada e saída registradas. |
-
-## Executar a aplicação
-
-A versão atual é executada com Flask e SQLite. Consulte o [guia de execução](src/README.md) e a [arquitetura](docs/arquitetura/arquitetura.md).
+- [Visão do produto](docs/visao-geral.md) e [requisitos](docs/requisitos/requisitos.md)
+- [Arquitetura](docs/arquitetura/arquitetura.md) e [plano de testes](docs/testes/plano-de-testes.md)
+- [Backlog](docs/backlog-produto.md) e [sprints](docs/sprints)
 
 ## Equipe
 
 | Integrante | GitHub |
-| :--- | :--- |
+|---|---|
 | Willian Custódio | [@williancustodio-lab](https://github.com/williancustodio-lab) |
 | Juliano Goulart | [@jotaGoulart](https://github.com/jotaGoulart) |
 | João Pedro Arriel | [@pereirajp06](https://github.com/pereirajp06) |
 | João Gabriel Tófoli | [@Tolofi](https://github.com/Tolofi) |
 
-## Contexto acadêmico
-
-| Informação | Detalhamento |
-| :--- | :--- |
-| **Projeto** | Sistema de Gerenciamento de Estoque |
-| **Problema escolhido** | Dificuldade de acompanhar quantidades disponíveis e movimentações de produtos devido à ausência de um controle de estoque centralizado |
-| **Disciplina e semestre** | Engenharia de Software — 2026/2 |
-| **Professor** | Prof. Johnatan Oliveira |
-| **Repositório** | [WillianCustodio-lab/sistema-gerenciamento-estoque](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque) |
+Professor: Johnatan Oliveira.

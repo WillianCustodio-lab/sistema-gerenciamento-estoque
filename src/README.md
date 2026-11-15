@@ -12,13 +12,13 @@ python -m venv .venv
 .\.venv\Scripts\python -m flask --app src.backend.app run
 ```
 
-Abra `http://127.0.0.1:5000`. Em **Produtos**, cadastre ou pesquise um item. Em **Movimentações**, selecione o tipo, o produto e a quantidade. Confira o saldo no histórico e na **Visão geral**.
+Abra `http://127.0.0.1:5000`. Em **Produtos**, cadastre um item. Em **Movimentações**, selecione o tipo, o produto e a quantidade. Confira o saldo em **Produtos** e a operação no **Histórico de movimentações**.
 
-O banco é criado em `instance/estoque.sqlite3`, na raiz do projeto. A Sprint 6 inicia com um banco vazio. Para consultar dados da Sprint 5, abra a versão antiga no mesmo navegador e endereço usados originalmente.
+O Flask cria o banco vazio em `instance/estoque.sqlite3`. Os dados da Sprint 5 ficam no navegador usado para aquela versão.
 
 ## Demonstração e testes
 
-Com o servidor parado, é possível povoar uma base vazia com três produtos de exemplo. A operação preserva bases que já contêm produtos.
+Com o servidor parado, use `seed-demo` para inserir três produtos de exemplo em uma base vazia. O comando preserva os produtos já cadastrados.
 
 ```powershell
 .\.venv\Scripts\python -m flask --app src.backend.app seed-demo

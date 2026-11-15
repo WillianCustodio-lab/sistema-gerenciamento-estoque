@@ -2,7 +2,7 @@
 
 ## Visão geral
 
-A aplicação é um monólito em camadas. Um processo Flask serve a interface e a API na mesma origem. O SQLite funciona no próprio processo e mantém os dados em arquivo. Essa organização simplifica execução e implantação para o escopo do trabalho.
+A aplicação é um monólito em camadas. O mesmo servidor Flask entrega a interface e recebe as chamadas da API. O SQLite guarda os dados em um arquivo local.
 
 ```text
 Navegador
@@ -38,12 +38,12 @@ O servidor retorna 201 para cadastros e movimentações confirmados. Dados invá
 
 **RNF-05 e RNF-06.** Ao receber uma movimentação, o SQLite reserva a escrita antes de ler o saldo. O ajuste de saldo e o registro no histórico são confirmados na mesma transação. Uma falha desfaz a operação completa. O arquivo do banco mantém o estado entre recargas e reinicializações.
 
-**RNF-08.** A interface depende do contrato HTTP. As regras e a persistência ficam no servidor. O Repository da Sprint 5 é sucedido pela implementação sobre SQLite. O formato de armazenamento interno deixa de ser uma responsabilidade do navegador.
+**RNF-08.** A interface acessa o estoque pela API. O servidor aplica as regras e grava os dados no SQLite.
 
-A consulta carrega o histórico inteiro, adequado à demonstração acadêmica. Paginação e medição de desempenho podem ser avaliadas com uma base maior.
+A consulta carrega todo o histórico. A aplicação ainda não divide os resultados em páginas.
 
 ## Execução e implantação
 
 Siga o [guia de execução](../../src/README.md). O Flask cria o arquivo `instance/estoque.sqlite3` na primeira inicialização. Os dados de demonstração podem ser inseridos em uma base vazia com `seed-demo`.
 
-A entrega foi validada localmente, sem publicação da aplicação. Uma implantação compartilhada requer um servidor WSGI e um diretório persistente e gravável para SQLite. Autenticação e controle de acesso continuam em evolução futura.
+Os testes cobrem a execução local. Para hospedar a aplicação, use um servidor WSGI e um diretório gravável e persistente para o SQLite. Autenticação e permissões por perfil ficam para uma evolução futura.

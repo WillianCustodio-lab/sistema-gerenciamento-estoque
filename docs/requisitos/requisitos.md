@@ -1,135 +1,77 @@
 # Requisitos da aplicação
 
-> **Artefato central da Sprint 2.** Este documento descreve o comportamento e as condições que o Sistema de Gerenciamento de Estoque deverá atender.
+## Levantamento
 
-## 1. Método de levantamento
+O grupo pesquisou problemas comuns de gestão de estoque e usou os resultados para discutir o escopo do sistema.
 
-Os requisitos foram identificados a partir de uma pesquisa sobre as principais dores operacionais da gestão de estoque. Os resultados serviram de base para uma discussão entre os integrantes do grupo, que analisaram o problema e definiram as necessidades do sistema.
+## Atores
 
-## 2. Atores e perfis
+| Perfil | Papel previsto |
+|---|---|
+| Supervisor de estoque | Cadastrar produtos, consultar saldos e registrar movimentações. |
+| Auxiliar de almoxarifado | Consultar produtos e registrar entradas e saídas. |
+| Administrador | Gerenciar usuários e perfis de acesso em uma versão futura. |
 
-| Ator/perfil | Objetivo no sistema | Permissões ou limitações principais |
-|---|---|---|
-| Administrador | Controlar o acesso dos usuários. | Gerencia usuários e atribui perfis de acesso. |
-| Supervisor de estoque | Organizar os produtos e acompanhar o estoque. | Cadastra produtos, consulta o estoque, registra movimentações e realiza ajustes. |
-| Auxiliar de almoxarifado | Executar as operações rotineiras do estoque. | Consulta produtos e registra entradas e saídas, sem alterar cadastros ou movimentações concluídas. |
+Os perfis representam funções da operação. A versão atual funciona sem login ou permissões individuais.
 
-## 3. Requisitos funcionais
+## Requisitos funcionais
 
-| ID | Nome | Descrição verificável | Prioridade | História/Issue | Situação final |
-|---|---|---|---|---|---|
-| `RF-01` | Cadastrar produtos | O sistema deve permitir que o supervisor cadastre um produto com informações válidas. | Alta | `US-01 / #1` | Implementado inicialmente |
-| `RF-02` | Consultar produtos | O sistema deve permitir que o supervisor e o auxiliar consultem os produtos cadastrados e suas quantidades. | Alta | `US-02 / #2` | Implementado inicialmente |
-| `RF-03` | Registrar entradas | O sistema deve permitir que o supervisor e o auxiliar registrem a entrada manual de produtos. | Alta | `US-03 / #3` | Implementado |
-| `RF-04` | Registrar saídas | O sistema deve permitir que o supervisor e o auxiliar registrem a saída manual de produtos. | Alta | `US-04 / #4` | Implementado |
-| `RF-05` | Consultar movimentações | O sistema deve permitir que o supervisor e o auxiliar consultem as entradas e saídas registradas. | Alta | `US-05 / #5` | Implementado |
-| `RF-06` | Controlar usuários | O sistema deve permitir que o administrador gerencie usuários e atribua perfis de acesso. | Alta | Não vinculada | Evolução futura |
-
-## 4. Requisitos não funcionais
-
-| ID | Categoria | Descrição verificável | Como será avaliado | Issue |
-|---|---|---|---|---|
-| `RNF-01` | Desempenho | As operações devem responder em até 5 segundos em uma base com até 1.000 produtos. | Medição do tempo de resposta durante os testes. | Não vinculada |
-| `RNF-02` | Usabilidade | Os formulários devem indicar dados inválidos e informar o resultado das operações. | Testes com preenchimentos válidos e inválidos. | Não vinculada |
-| `RNF-03` | Segurança | As senhas não devem ser armazenadas em texto simples. | Inspeção do armazenamento das credenciais. | Não vinculada |
-| `RNF-04` | Controle de acesso | O sistema deve impedir ações não permitidas para o perfil do usuário. | Testes de acesso com os três perfis. | Não vinculada |
-| `RNF-05` | Integridade | Uma operação rejeitada não deve alterar o saldo nem o histórico. | Comparação dos dados antes e depois de uma operação inválida. | Não vinculada |
-| `RNF-06` | Persistência | Os dados confirmados devem permanecer disponíveis após a aplicação ser reiniciada. | Reinicialização da aplicação e nova consulta dos dados. | Não vinculada |
-| `RNF-07` | Acessibilidade | Campos e botões devem possuir identificação textual e rótulos associados. | Inspeção dos componentes da interface. | Não vinculada |
-| `RNF-08` | Manutenibilidade | O código deve separar interface, regras da aplicação e persistência. | Revisão da organização do código. | Não vinculada |
-
-## 5. Regras de negócio
-
-| ID | Regra | Origem/justificativa | Requisitos afetados |
+| ID | Resultado esperado | Issue | Situação |
 |---|---|---|---|
-| `RN-01` | Cada produto deve possuir um código único. | Evitar cadastros duplicados. | `RF-01` |
-| `RN-02` | Uma movimentação deve possuir quantidade inteira maior que zero. | Evitar alterações inválidas no estoque. | `RF-03`, `RF-04` |
-| `RN-03` | Uma entrada aumenta o saldo e uma saída reduz o saldo do produto. | Manter a quantidade disponível atualizada. | `RF-03`, `RF-04` |
-| `RN-04` | Uma saída superior ao saldo disponível deve ser rejeitada. | Impedir saldo negativo. | `RF-04` |
-| `RN-05` | Movimentações concluídas devem permanecer no histórico; correções devem gerar um ajuste. | Preservar o registro das alterações do estoque. | `RF-05` |
-| `RN-06` | Cada usuário deve executar somente as ações permitidas para seu perfil. | Separar as responsabilidades dos atores. | `RF-06` |
+| RF-01 | Cadastrar produtos com código único. | #1 | Disponível |
+| RF-02 | Consultar produtos e seus saldos. | #2 | Disponível |
+| RF-03 | Registrar manualmente a entrada de um produto. | #3 | Disponível |
+| RF-04 | Registrar manualmente a saída de um produto. | #4 | Disponível |
+| RF-05 | Consultar entradas e saídas no histórico. | #5 | Disponível |
+| RF-06 | Gerenciar usuários e atribuir perfis de acesso. | — | Evolução futura |
 
-## 6. Histórias de usuário e critérios de aceitação
+## Requisitos não funcionais
 
-### US-01 — Cadastrar produtos
-
-Como **supervisor de estoque**, quero **cadastrar produtos**, para **incluí-los no controle do estoque**.
-
-**Requisitos relacionados:** `RF-01`, `RNF-02`, `RNF-06`
-
-**Critérios de aceitação:**
-
-1. **Dado que** as informações são válidas, **quando** o supervisor confirmar o cadastro, **então** o produto deverá ser registrado e apresentado na consulta.
-2. **Dado que** o código informado já está em uso, **quando** o supervisor tentar cadastrar o produto, **então** o sistema deverá rejeitar a operação.
-
-**Issue:** `#1`
-
-### US-02 — Consultar produtos
-
-Como **supervisor ou auxiliar**, quero **consultar produtos e quantidades**, para **verificar a disponibilidade no estoque**.
-
-**Requisitos relacionados:** `RF-02`, `RNF-01`, `RNF-06`
-
-**Critérios de aceitação:**
-
-1. **Dado que** existem produtos cadastrados, **quando** o usuário abrir a consulta, **então** os produtos e suas quantidades deverão ser apresentados.
-2. **Dado que** não existem produtos cadastrados, **quando** o usuário abrir a consulta, **então** o sistema deverá informar que não há produtos.
-
-**Issue:** `#2`
-
-### US-03 — Registrar entradas
-
-Como **supervisor ou auxiliar**, quero **registrar entradas**, para **atualizar o estoque após o recebimento de produtos**.
-
-**Requisitos relacionados:** `RF-03`, `RNF-05`
-
-**Critérios de aceitação:**
-
-1. **Dado que** um produto possui saldo 10, **quando** o usuário registrar uma entrada de 5, **então** o saldo deverá ser atualizado para 15.
-2. **Dado que** a quantidade é inválida, **quando** o usuário tentar registrar a entrada, **então** a operação deverá ser rejeitada sem alterar o saldo.
-
-**Issue:** `#3`
-
-### US-04 — Registrar saídas
-
-Como **supervisor ou auxiliar**, quero **registrar saídas**, para **atualizar o estoque após a retirada de produtos**.
-
-**Requisitos relacionados:** `RF-04`, `RNF-05`
-
-**Critérios de aceitação:**
-
-1. **Dado que** um produto possui saldo 10, **quando** o usuário registrar uma saída de 3, **então** o saldo deverá ser atualizado para 7.
-2. **Dado que** a quantidade solicitada supera o saldo, **quando** o usuário tentar registrar a saída, **então** a operação deverá ser rejeitada.
-
-**Issue:** `#4`
-
-### US-05 — Consultar movimentações
-
-Como **supervisor ou auxiliar**, quero **consultar as movimentações**, para **conferir as alterações realizadas no estoque**.
-
-**Requisitos relacionados:** `RF-05`
-
-**Critérios de aceitação:**
-
-1. **Dado que** existem entradas e saídas registradas, **quando** o usuário abrir a consulta, **então** as movimentações deverão ser apresentadas.
-2. **Dado que** uma movimentação foi registrada, **quando** ela for consultada, **então** deverá ser possível identificar o produto, o tipo e a quantidade.
-
-**Issue:** `#5`
-
-## 7. Fora do escopo
-
-| Item | Motivo | Possível trabalho futuro |
+| ID | Critério | Verificação |
 |---|---|---|
-| Importação automática de movimentações | As entradas e saídas serão registradas manualmente na aplicação. | Integração com outros sistemas. |
-| Representação tridimensional do estoque | Não faz parte das funcionalidades iniciais definidas para o produto. | Visualização da localização dos produtos em 3D. |
-| Autenticação e múltiplos perfis | O MVP prioriza o fluxo de produtos e movimentações. | Implementação posterior do `RF-06`. |
+| RNF-01 | Responder em até 5 segundos em uma base com até 1.000 produtos. | Medir as operações com a base preparada. |
+| RNF-02 | Informar o resultado da operação e indicar dados inválidos. | Testar formulários com dados válidos e inválidos. |
+| RNF-03 | Guardar senhas sem usar texto simples. | Inspecionar o armazenamento quando houver autenticação. |
+| RNF-04 | Restringir operações conforme o perfil do usuário. | Verificar permissões quando houver autenticação. |
+| RNF-05 | Preservar saldo e histórico quando a operação for rejeitada. | Comparar os dados antes e depois da rejeição. |
+| RNF-06 | Manter os registros após reiniciar a aplicação. | Reiniciar e consultar novamente. |
+| RNF-07 | Identificar campos e botões com rótulos de texto. | Inspecionar os controles da interface. |
+| RNF-08 | Separar interface, regras de estoque e persistência. | Conferir a organização do código. |
 
-## 8. Histórico de alterações
+Os [testes](../testes/plano-de-testes.md) detalham a verificação dos requisitos cobertos. O [relatório](../testes/resultados-sprint-07.md) registra a medição local da API.
 
-| Sprint | Requisito alterado | Alteração | Motivo | Issue/commit |
-|---|---|---|---|---|
-| Sprint 2 | `RF-01` a `RF-06` | Primeira definição dos requisitos da aplicação. | Transformar a visão inicial em comportamento verificável. | `#25` |
-| Sprint 3 | `RF-03`, `RF-05` | Implementação do registro e da consulta de entradas. | Evoluir um fluxo representado nos modelos da Sprint 3. | `#3` |
-| Sprint 4 | `RF-04`, `RF-05`, `RF-06` | Implementação de saídas e histórico completo; controle de usuários movido para evolução futura. | Manter o MVP concentrado em produtos e movimentações. | `#4`, `#5`, `#29` |
-| Sprint 5 | `RF-01` a `RF-05`, `RNF-05`, `RNF-06` | Navegação, pesquisa, movimentação unificada e persistência conjunta. | Facilitar a operação e evitar gravações parciais. | `#16`, `#30`, `#31` |
-| Sprint 6 | `RF-01` a `RF-05`, `RNF-05`, `RNF-06`, `RNF-08` | Integração Flask e SQLite, com saldo e histórico gravados na mesma transação. | Centralizar os dados e manter o estoque consistente entre sessões. | `#22`, `#23`, `#24`, `#33` |
+## Regras de negócio
+
+| ID | Regra | Requisito |
+|---|---|---|
+| RN-01 | Cada produto tem um código único. | RF-01 |
+| RN-02 | A quantidade de uma movimentação é um inteiro maior que zero. | RF-03 e RF-04 |
+| RN-03 | Entradas aumentam o saldo e saídas reduzem o saldo. | RF-03 e RF-04 |
+| RN-04 | A saída é rejeitada se a quantidade superar o saldo. | RF-04 |
+| RN-05 | Movimentações concluídas permanecem no histórico. Ajustes ficam para uma evolução futura. | RF-05 |
+| RN-06 | Cada usuário poderá realizar apenas as ações permitidas para seu perfil. | RF-06 |
+
+## Histórias de usuário e critérios de aceitação
+
+| História | Necessidade | Critérios | Requisitos |
+|---|---|---|---|
+| US-01 · #1 | O supervisor precisa incluir produtos no estoque. | Um cadastro válido aparece na consulta. Códigos repetidos são rejeitados. | RF-01, RNF-02, RNF-06 |
+| US-02 · #2 | Supervisor e auxiliar precisam conferir a disponibilidade. | A lista mostra os produtos e seus saldos. Se estiver vazia, a tela informa que não há produtos. | RF-02, RNF-01, RNF-06 |
+| US-03 · #3 | Supervisor e auxiliar precisam registrar recebimentos. | Uma entrada de 5 sobre um saldo de 10 resulta em 15. Quantidade inválida não altera o saldo. | RF-03, RNF-05 |
+| US-04 · #4 | Supervisor e auxiliar precisam registrar retiradas. | Uma saída de 3 sobre um saldo de 10 resulta em 7. Uma saída acima do saldo é rejeitada. | RF-04, RNF-05 |
+| US-05 · #5 | Supervisor e auxiliar precisam conferir as mudanças no estoque. | O histórico mostra entradas e saídas com produto, tipo e quantidade. | RF-05 |
+
+## Fora do escopo atual
+
+Importação automática de movimentações, visualização 3D da localização dos produtos e controle de acesso por perfil.
+
+## Evolução dos requisitos
+
+| Sprint | Alteração | Issues |
+|---|---|---|
+| 2 | Definição inicial de requisitos e cadastro de produtos. | #25 |
+| 3 | Registro de entradas e histórico inicial. | #3 |
+| 4 | Saídas com validação de saldo e histórico completo. | #4, #5, #29 |
+| 5 | Pesquisa, interface e gravação conjunta de saldo e histórico. | #16, #30, #31 |
+| 6 | API Flask e persistência em SQLite. | #22, #23, #24, #33 |
+| 7 | Cobertura dos fluxos e correção no total de unidades. | #34, #35 |

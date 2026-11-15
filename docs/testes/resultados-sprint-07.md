@@ -20,6 +20,6 @@ Medição de uma execução com o cliente de testes do Flask e banco temporário
 
 ## Defeito encontrado e reteste
 
-Na [issue #34](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/34), o CT-10 falhou inicialmente. Para dois saldos válidos, o indicador mostrava **9.007.199.254.740.992** em vez de **9.007.199.254.740.993**. A soma do indicador passou a usar inteiros exatos (`BigInt`). O CT-10 passou depois da correção e o fluxo principal foi executado novamente.
+O CT-10 encontrou um erro de arredondamento. Para dois saldos válidos, o indicador mostrava **9.007.199.254.740.992** em vez de **9.007.199.254.740.993**. O indicador soma as unidades com `BigInt`. O CT-10 e o fluxo principal passaram no reteste. [Issue #34](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/34)
 
 Reprodução e comandos no [plano de testes](plano-de-testes.md). A execução foi técnica e local. A avaliação de usabilidade com participantes fica para a validação final.
