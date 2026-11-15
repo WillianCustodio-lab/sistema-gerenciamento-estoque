@@ -4,14 +4,12 @@
 
 O quadro principal utiliza quatro estados: **A fazer**, **Em andamento**, **Em revisão** e **Concluído**.
 
-## Sprint corrente — Sprint 6
+## Sprint corrente — Sprint 7
 
 | Issue | Item | Estado |
 |---|---|---|
-| `#22` | Integrar a interface à API Flask | Concluído |
-| `#23` | Criar o banco SQLite e o povoamento opcional de produtos | Concluído |
-| `#24` | Garantir consistência do saldo e do histórico | Concluído |
-| `#33` | Documentar a arquitetura e consolidar a entrega | Concluído |
+| `#34` | Corrigir a precisão do total de unidades | Concluído |
+| `#35` | Consolidar o plano, as suítes e as evidências da Sprint 7 | Concluído |
 
 ## Escopo do MVP
 
@@ -29,7 +27,6 @@ Autenticação, múltiplos perfis, fornecedores, lotes, indicadores avançados, 
 
 | Sprint | Foco |
 |---|---|
-| Sprint 7 | Testar as funcionalidades principais |
 | Sprint 8 | Validar, corrigir e consolidar a entrega final |
 
 ## Histórico de refinamento
@@ -42,3 +39,4 @@ Autenticação, múltiplos perfis, fornecedores, lotes, indicadores avançados, 
 | Sprint 4 | Separação de responsabilidades, saídas e histórico completo. |
 | Sprint 5 | Interface administrativa, pesquisa, indicadores básicos e persistência conjunta de saldo e histórico. |
 | Sprint 6 | Interface integrada à API Flask, SQLite, transações de estoque e documentação da arquitetura. |
+| Sprint 7 | Testes reproduzíveis do MVP, medição da API e correção com reteste do indicador de unidades. |

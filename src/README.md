@@ -25,4 +25,4 @@ Com o servidor parado, é possível povoar uma base vazia com três produtos de 
 .\.venv\Scripts\python -m unittest discover -s tests -v
 ```
 
-Consulte a [arquitetura](../docs/arquitetura/arquitetura.md) para ver os componentes e o contrato da API.
+Consulte a [arquitetura](../docs/arquitetura/arquitetura.md) para ver os componentes e o contrato da API. O [plano de testes](../docs/testes/plano-de-testes.md) inclui os comandos da suíte no Chrome.
