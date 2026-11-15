@@ -108,7 +108,8 @@ function setupInventory() {
 
   function render() {
     byId("total-products").textContent = numberFormat.format(products.length);
-    byId("total-units").textContent = numberFormat.format(products.reduce((sum, product) => sum + product.quantity, 0));
+    const totalUnits = products.reduce((sum, product) => sum + BigInt(product.quantity), 0n);
+    byId("total-units").textContent = numberFormat.format(totalUnits);
     byId("total-out").textContent = numberFormat.format(products.filter((product) => product.quantity === 0).length);
     renderProducts();
     renderMovementTable("recent", movements.slice(0, 5));

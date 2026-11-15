@@ -144,3 +144,23 @@ test("CT-07 a CT-09: navegação, operação do estoque e recuperação de conex
     await context.close();
   }
 });
+
+test("CT-10: indicador de unidades mantém a precisão acima do limite de Number", async () => {
+  const page = await browser.newPage();
+  try {
+    await page.route("**/api/inventory", (route) => route.fulfill({
+      json: {
+        products: [
+          { code: "P1", name: "Produto 1", category: "", quantity: Number.MAX_SAFE_INTEGER },
+          { code: "P2", name: "Produto 2", category: "", quantity: 2 },
+        ],
+        movements: [],
+      },
+    }));
+    await page.goto(address);
+    await page.locator("#total-products").getByText("2", { exact: true }).waitFor();
+    assert.equal(await page.locator("#total-units").innerText(), "9.007.199.254.740.993");
+  } finally {
+    await page.close();
+  }
+});
