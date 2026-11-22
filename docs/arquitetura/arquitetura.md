@@ -23,15 +23,22 @@ Navegador ← HTTP/JSON → Flask → InventoryRepository → SQLite
 | Operação | Resultado |
 |---|---|
 | `GET /api/inventory` | Retorna produtos e histórico em uma consulta consistente. |
-| `POST /api/products` | Cadastra um produto com código, nome, categoria opcional e quantidade inicial. |
+| `POST /api/products` | Cadastra um produto com código, nome, categoria opcional, quantidade inicial e estoque mínimo opcional. |
+| `PUT /api/products/<código>/minimum` | Define o estoque mínimo do produto. `null` remove o limite. |
 | `POST /api/movements` | Registra entrada ou saída com tipo, código do produto e quantidade. |
 
 **RNF-05 e RNF-06.** Saldo e histórico são gravados na mesma transação. Se a operação falhar, ambos são preservados. O banco mantém os registros após reiniciar a aplicação.
 
 **RNF-08.** A interface consulta a API, e o servidor aplica as regras de estoque.
 
+**Estoque mínimo (Sprint 8).** A coluna `minimum` é opcional. Ao iniciar, `initialize` acrescenta a coluna aos bancos criados antes da Sprint 8 sem alterar os dados existentes. A interface calcula o destaque e o indicador de estoque baixo a partir do saldo e do mínimo retornados pela API.
+
 A consulta carrega todo o histórico. A aplicação ainda não divide os resultados em páginas.
 
 ## Execução e implantação
 
-Os testes cobrem a execução local. Para hospedar a aplicação, é necessário um servidor WSGI e armazenamento persistente para o SQLite. [Guia de execução](../../src/README.md)
+A aplicação roda localmente, sem hospedagem. Quem for avaliar clona o repositório e segue o [guia de execução](../../src/README.md).
+
+**Integração contínua.** O workflow [ci.yml](../../.github/workflows/ci.yml) executa as suítes Python e do Chrome no Ubuntu a cada push e pull request. O resultado aparece na aba **Actions** do GitHub e no selo do README.
+
+Para hospedar no futuro, seria necessário um servidor WSGI, como o gunicorn, e disco persistente para o SQLite. A aplicação também não tem autenticação (RNF-03 e RNF-04 são evoluções futuras).

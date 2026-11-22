@@ -23,3 +23,7 @@ A solução evitou gravações parciais e manteve a leitura dos dados antigos. C
 ## Evidência
 
 Na versão `sprint-05`, execute `node --test tests/inventory.test.cjs`. Os [testes](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/blob/sprint-05/tests/inventory.test.cjs) cobrem leitura dos dados antigos, recarga e falha de gravação. A implementação está na [issue #31](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/31).
+
+## Situação atual
+
+Na Sprint 6, o Repository passou para o servidor como [`InventoryRepository`](../../src/backend/inventory.py). A interface não acessa o banco: chama a API, e a API delega ao repositório. Cada operação de gravação abre uma transação `BEGIN IMMEDIATE`, que impede duas saídas simultâneas de deixar o saldo negativo (CT-05). Na Sprint 8, o repositório ganhou `set_minimum` sem alterações na API de leitura. Os testes estão em [`test_inventory.py`](../../tests/test_inventory.py).
