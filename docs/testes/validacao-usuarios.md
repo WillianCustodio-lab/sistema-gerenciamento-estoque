@@ -71,5 +71,5 @@ Use **S** (concluiu sozinho), **A** (concluiu com ajuda) ou **N** (não concluiu
 
 | Problema observado | Participantes | Gravidade (alta, média, baixa) | Ação (issue ou ajuste) | Situação |
 |---|---|---|---|---|
-| O nome "Definir mínimo" não deixou claro que o valor indica quando repor o produto. | P1 | Média | Avaliar um nome mais claro para a ação, como "Definir ponto de reposição", ou um texto de ajuda no diálogo. | Pendente |
-| A aparência da interface foi considerada pouco atraente. | P1, P3 | Baixa | Revisar o visual da interface. | Pendente |
+| O nome "Definir mínimo" não deixou claro que o valor indica quando repor o produto. | P1 | Média | Avaliar um nome mais claro para a ação, como "Definir ponto de reposição", ou um texto de ajuda no diálogo. | Registrado na [#39](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/39) |
+| A aparência da interface foi considerada pouco atraente. | P1, P3 | Baixa | Revisar o visual da interface. | Registrado na [#40](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/40) |

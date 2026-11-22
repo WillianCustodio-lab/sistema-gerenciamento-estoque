@@ -14,11 +14,11 @@ O quadro principal utiliza quatro estados: **A fazer**, **Em andamento**, **Em r
 
 | Issue | Item | Prioridade | Estado |
 |---|---|---|---|
-| A criar | Validação com usuários | Alta | Concluído |
+| `#37` | Validação com usuários | Alta | Concluído |
 | `#14` | Definir estoque mínimo por produto | Média | Concluído |
 | `#15` | Destacar produtos com estoque baixo | Média | Concluído |
 | `#20` | Indicador de estoque baixo na Visão geral | Média | Concluído |
-| A criar | Integração contínua | Média | Concluído |
+| `#38` | Integração contínua | Média | Concluído |
 | `#12` | Registro do uso de IA e da revisão do grupo | Média | Concluído |
 
 ## Escopo do MVP
@@ -37,6 +37,8 @@ O quadro principal utiliza quatro estados: **A fazer**, **Em andamento**, **Em r
 |---|---|---|---|
 | `#16` | Pesquisar produtos | Média | Concluído na Sprint 5 |
 | `#14`, `#15`, `#20` | Estoque mínimo, alerta e indicador de estoque baixo | Média | Concluído na Sprint 8 |
+| `#39` | Deixar mais claro o objetivo de "Definir mínimo" (validação com usuários) | Média | Evolução futura |
+| `#40` | Melhorar a aparência da interface (validação com usuários) | Baixa | Evolução futura |
 | `#17` | Filtrar produtos por categoria | Baixa | Evolução futura |
 | `#18` | Editar informações de produtos | Baixa | Evolução futura |
 | `#19` | Desativar produtos | Baixa | Evolução futura |
