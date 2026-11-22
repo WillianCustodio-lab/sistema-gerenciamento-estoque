@@ -1,6 +1,6 @@
 # Sprint 8 — Estoque mínimo, validação e entrega final
 
-**Início:** 21/11/2026. **Situação:** em andamento. A tag `sprint-08` será criada depois da validação com usuários.
+**Início:** 21/11/2026. **Situação:** em andamento. A validação com usuários foi concluída. A tag `sprint-08` será criada depois do merge na `main`.
 
 A sprint completa os indicadores da Visão geral com o estoque baixo, valida o sistema com usuários e consolida a entrega final.
 
@@ -11,7 +11,7 @@ A sprint completa os indicadores da Visão geral com o estoque baixo, valida o s
 | [#14](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/14) | Estoque mínimo opcional por produto, no cadastro e em "Definir mínimo" (RF-07) | CT-11 e CT-12 em [resultados](../testes/resultados-sprint-08.md) | Concluído |
 | [#15](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/15) | Selo "Estoque baixo" na lista de produtos (RF-08) | CT-11 | Concluído |
 | [#20](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/20) | Indicador "Produtos com estoque baixo" na Visão geral (RF-08) | CT-11 | Concluído |
-| A criar | Validação com usuários | [Roteiro e registro](../testes/validacao-usuarios.md) | A fazer |
+| A criar | Validação com usuários | [Roteiro e registro](../testes/validacao-usuarios.md) | Concluído. Critério de aceite atendido, com 3 participantes. |
 | A criar | Integração contínua (GitHub Actions) | [ci.yml](../../.github/workflows/ci.yml) e [arquitetura](../arquitetura/arquitetura.md#execução-e-implantação) | Concluído. A CI passou no pull request da sprint. |
 | [#12](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/12) | Registro do uso de IA e da revisão do grupo | [Uso de IA](../uso-de-ia.md) | Aguarda revisão do grupo |
 
@@ -25,8 +25,8 @@ A sprint completa os indicadores da Visão geral com o estoque baixo, valida o s
 ## Para encerrar a sprint
 
 1. ~~Conferir na aba **Actions** do GitHub que a primeira execução da CI passou.~~ Concluído.
-2. Fazer as sessões do [roteiro de validação](../testes/validacao-usuarios.md) e registrar os resultados.
-3. Corrigir ou registrar como issue os problemas encontrados.
+2. ~~Fazer as sessões do [roteiro de validação](../testes/validacao-usuarios.md) e registrar os resultados.~~ Concluído.
+3. Registrar como issue os dois problemas da validação: o nome "Definir mínimo" e a aparência da interface.
 4. Revisar o [registro de uso de IA](../uso-de-ia.md) e fechar a #12.
 5. Fechar as issues #14, #15 e #20 com os links dos commits.
 6. Substituir "A criar" pelos números das issues e acrescentar os commits nesta página.

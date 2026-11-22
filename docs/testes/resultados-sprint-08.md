@@ -10,4 +10,6 @@
 
 Na primeira execução do CT-09, a página ficou com 585 px de largura em uma tela de 375 px. O texto oculto do cabeçalho "Ações", na nova coluna da tabela de produtos, escapava da área com rolagem. A tabela passou a ser a referência de posicionamento (`.table-wrap { position: relative; }`), e o reteste passou.
 
+A [validação com usuários](validacao-usuarios.md) atendeu ao critério de aceite com três participantes.
+
 Os casos e comandos estão no [plano de testes](plano-de-testes.md).

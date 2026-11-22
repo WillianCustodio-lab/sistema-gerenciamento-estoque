@@ -14,7 +14,7 @@ O quadro principal utiliza quatro estados: **A fazer**, **Em andamento**, **Em r
 
 | Issue | Item | Prioridade | Estado |
 |---|---|---|---|
-| A criar | Validação com usuários | Alta | A fazer |
+| A criar | Validação com usuários | Alta | Concluído |
 | `#14` | Definir estoque mínimo por produto | Média | Concluído |
 | `#15` | Destacar produtos com estoque baixo | Média | Concluído |
 | `#20` | Indicador de estoque baixo na Visão geral | Média | Concluído |

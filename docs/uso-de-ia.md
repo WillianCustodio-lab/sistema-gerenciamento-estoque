@@ -11,20 +11,20 @@ O grupo usou assistentes de IA como apoio. As decisões de escopo e a aprovaçã
 
 ## Verificações técnicas
 
-Cada sprint registra os testes executados. Na Sprint 8, as suítes Python e do Chrome foram executadas depois das mudanças, e o defeito encontrado foi corrigido antes do registro. [Resultados da Sprint 8](testes/resultados-sprint-08.md)
+Cada sprint registra os testes executados. Na Sprint 8, as suítes Python e do Chrome foram executadas depois das mudanças, e o defeito encontrado foi corrigido antes do registro. A primeira execução da CI no GitHub foi conferida por Juliano Goulart. [Resultados da Sprint 8](testes/resultados-sprint-08.md)
 
 ## Revisão do grupo
 
-**Situação:** pendente. Antes da entrega final, cada integrante deve conferir os itens abaixo e registrar a revisão.
+**Situação:** pendente. Faltam as revisões de João Pedro Arriel e João Gabriel Tófoli. Antes da entrega final, cada integrante deve conferir os itens abaixo e registrar a revisão.
 
-- [ ] As alterações da Sprint 8 foram lidas e entendidas pelo grupo.
-- [ ] As suítes foram executadas por um integrante em outra máquina.
-- [ ] A documentação descreve o sistema como ele funciona.
-- [ ] A validação com usuários foi feita pelo grupo, sem resultados gerados por IA.
+- [x] As alterações da Sprint 8 foram lidas e entendidas pelo grupo.
+- [x] As suítes foram executadas por um integrante em outra máquina.
+- [x] A documentação descreve o sistema como ele funciona.
+- [x] A validação com usuários foi feita pelo grupo, sem resultados gerados por IA.
 
 | Integrante | Data | Itens revisados | Observações |
 |---|---|---|---|
-| Willian Custódio | | | |
-| Juliano Goulart | | | |
+| Willian Custódio | 21/11 | Revisão completa de todas as sprints | |
+| Juliano Goulart | 21/11 | Revisão completa durante o andamento com foco prioritário na sprint 8. | |
 | João Pedro Arriel | | | |
 | João Gabriel Tófoli | | | |

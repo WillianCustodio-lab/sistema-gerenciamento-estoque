@@ -1,6 +1,6 @@
 # Validação com usuários — Sprint 8
 
-**Situação:** roteiro pronto, sessões **a realizar**. Preencha as tabelas de resultado depois de cada sessão. Não registre resultados que não foram observados.
+**Situação:** concluída em 21/11/2026. Três sessões presenciais, moderadas por Juliano Goulart. Os resultados abaixo foram observados nas sessões.
 
 ## Objetivo
 
@@ -12,9 +12,9 @@ Pelo menos três pessoas que não participaram do desenvolvimento. Se possível,
 
 | ID | Perfil (função, experiência com estoque) | Data | Dispositivo e navegador | Moderador |
 |---|---|---|---|---|
-| P1 | | | | |
-| P2 | | | | |
-| P3 | | | | |
+| P1 | Corretor (experiência básica) | 21/11/2026 | PC com Windows 11, Chrome | Juliano Goulart |
+| P2 | Arquiteta e urbanista (trabalha em loja, experiente com esse tipo de sistema) | 21/11/2026 | PC com Windows 11, Chrome | Juliano Goulart |
+| P3 | Técnica de enfermagem (aplica vacinas e lida com sistemas de estoque todos os dias) | 21/11/2026 | PC com Windows 11, Chrome | Juliano Goulart |
 
 ## Preparação
 
@@ -42,14 +42,14 @@ Use **S** (concluiu sozinho), **A** (concluiu com ajuda) ou **N** (não concluiu
 
 | T | P1 | P2 | P3 | Observações (dúvidas, erros, falas) |
 |---|---|---|---|---|
-| T1 | | | | |
-| T2 | | | | |
-| T3 | | | | |
-| T4 | | | | |
-| T5 | | | | |
-| T6 | | | | |
-| T7 | | | | |
-| T8 | | | | |
+| T1 | S | S | S | |
+| T2 | S | S | S | |
+| T3 | S | S | S | |
+| T4 | S | S | S | |
+| T5 | S | S | S | |
+| T6 | S | S | S | |
+| T7 | A | S | S | P1 não entendeu que "Definir mínimo" servia para indicar quando o produto deve ser reposto. |
+| T8 | S | S | S | |
 
 ## Perguntas finais
 
@@ -59,14 +59,17 @@ Use **S** (concluiu sozinho), **A** (concluiu com ajuda) ou **N** (não concluiu
 
 | Participante | Nota | Respostas |
 |---|---|---|
-| P1 | | |
-| P2 | | |
-| P3 | | |
+| P1 | 5 | Pergunta 3: uma interface mais bonita e chamativa. |
+| P2 | 5 | Pergunta 2: nada; achou o sistema organizado. Provavelmente por já estar acostumada com sistemas parecidos. |
+| P3 | 5 | Pergunta 3: nada; parece bastante com o sistema que usa no dia a dia, mas com aparência menos atraente. |
 
 ## Resultado e ações
 
 **Critério de aceite:** cada tarefa concluída sozinho (S) por pelo menos 2 dos 3 participantes.
 
+**Resultado:** critério atendido. Os três participantes concluíram sozinhos as tarefas T1 a T6 e T8. A T7 foi concluída sozinha por 2 dos 3 participantes, e P1 precisou de ajuda. Todos deram nota 5 para a facilidade de uso.
+
 | Problema observado | Participantes | Gravidade (alta, média, baixa) | Ação (issue ou ajuste) | Situação |
 |---|---|---|---|---|
-| | | | | |
+| O nome "Definir mínimo" não deixou claro que o valor indica quando repor o produto. | P1 | Média | Avaliar um nome mais claro para a ação, como "Definir ponto de reposição", ou um texto de ajuda no diálogo. | Pendente |
+| A aparência da interface foi considerada pouco atraente. | P1, P3 | Baixa | Revisar o visual da interface. | Pendente |
