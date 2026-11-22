@@ -1,8 +1,8 @@
-# Plano de testes — Sprint 7
+# Plano de testes — Sprints 7 e 8
 
 ## Objetivo e escopo
 
-Os testes cobrem cadastro, consulta e movimentações no SQLite, na API e no Chrome. As suítes usam um banco temporário. Controle de acesso e validação com usuários ficam fora desta etapa.
+Os testes cobrem cadastro, consulta, movimentações e estoque mínimo no SQLite, na API e no Chrome. As suítes usam um banco temporário. Controle de acesso fica fora do escopo. A validação com usuários segue um [roteiro próprio](validacao-usuarios.md).
 
 ## Casos e rastreabilidade
 
@@ -18,10 +18,12 @@ Os testes cobrem cadastro, consulta e movimentações no SQLite, na API e no Chr
 | CT-08 | RF-03 a RF-05, RNF-05, RNF-06 | Produtos com e sem saldo | Registrar entrada e saída válidas, tentar uma saída acima do saldo e recarregar | Saldo, histórico e indicadores refletem apenas as operações válidas. |
 | CT-09 | RNF-02, RNF-07 | Tela estreita e falha simulada na consulta | Rolar a tabela pelo teclado e atualizar o estoque | A tabela permite rolagem e o aviso some quando a consulta volta a funcionar. |
 | CT-10 | RF-02 | Produtos com saldos muito altos | Abrir a Visão geral | O total de unidades mantém a precisão. |
+| CT-11 | RF-07, RF-08 | Produtos sem mínimo configurado | Cadastrar com mínimo, definir e remover o mínimo pela tela e recarregar | Selo "Estoque baixo" só com saldo igual ou abaixo do mínimo. O indicador mostra "—" sem limite configurado e a contagem correta depois. |
+| CT-12 | RF-07, RNF-02, RNF-06 | Banco criado antes da Sprint 8 e produto cadastrado | Iniciar a aplicação, enviar mínimos válidos e inválidos pela API e reiniciar | A coluna é criada sem perda de dados. Valores inválidos e produtos inexistentes são rejeitados. O mínimo permanece. |
 
 ## Aprovação e execução
 
-O aceite exige que os testes passem e que a API local cumpra o limite do CT-06. [Resultados da Sprint 7](resultados-sprint-07.md)
+O aceite exige que os testes passem e que a API local cumpra o limite do CT-06. [Resultados da Sprint 7](resultados-sprint-07.md) · [Resultados da Sprint 8](resultados-sprint-08.md) · [Validação com usuários](validacao-usuarios.md)
 
 Prepare o Python pelo [guia da aplicação](../../src/README.md). A partir da raiz no PowerShell, execute:
 

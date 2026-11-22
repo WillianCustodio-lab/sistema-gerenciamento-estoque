@@ -47,6 +47,27 @@ class ApiTest(unittest.TestCase):
         self.assertEqual(stock["movements"], [])
         self.assertEqual(stock["products"][0]["quantity"], 1)
 
+    def test_minimum_stock_can_be_set_and_cleared(self):
+        created = self.client.post("/api/products", json={"code": "FT1", "name": "Fita", "quantity": 3, "minimum": 5})
+        self.assertEqual(created.status_code, 201)
+        self.assertEqual(created.json["minimum"], 5)
+        self.client.post("/api/products", json={"code": "CX/2", "name": "Caixa", "quantity": 9})
+        updated = self.client.put("/api/products/cx%2F2/minimum", json={"minimum": 10})
+        self.assertEqual(updated.status_code, 200)
+        self.assertEqual(updated.json, {"code": "CX/2", "name": "Caixa", "category": "", "quantity": 9, "minimum": 10})
+        for path, payload, status in (
+            ("/api/products/FT1/minimum", {"minimum": -1}, 400),
+            ("/api/products/FT1/minimum", [], 400),
+            ("/api/products/XX/minimum", {"minimum": 1}, 404),
+        ):
+            with self.subTest(path=path, payload=payload):
+                response = self.client.put(path, json=payload)
+                self.assertEqual(response.status_code, status)
+                self.assertTrue(response.json["message"])
+        self.assertEqual(self.client.put("/api/products/FT1/minimum", json={"minimum": None}).json["minimum"], None)
+        products = self.client.get("/api/inventory").json["products"]
+        self.assertEqual([p["minimum"] for p in products], [None, 10])
+
     def test_seed_demo_is_explicit_and_preserves_existing_data(self):
         app = create_app(self.config)
         runner = app.test_cli_runner()

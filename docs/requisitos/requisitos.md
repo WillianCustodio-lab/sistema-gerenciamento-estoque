@@ -24,6 +24,8 @@ Os perfis representam funções da operação. A versão atual funciona sem logi
 | RF-04 | Registrar manualmente a saída de um produto. | #4 | Disponível |
 | RF-05 | Consultar entradas e saídas no histórico. | #5 | Disponível |
 | RF-06 | Gerenciar usuários e atribuir perfis de acesso. | — | Evolução futura |
+| RF-07 | Definir, alterar ou remover o estoque mínimo de um produto. | #14 | Disponível |
+| RF-08 | Destacar produtos com estoque baixo e informar quantos estão nessa situação. | #15, #20 | Disponível |
 
 ## Requisitos não funcionais
 
@@ -50,6 +52,8 @@ Os [testes](../testes/plano-de-testes.md) detalham a verificação dos requisito
 | RN-04 | A saída é rejeitada se a quantidade superar o saldo. | RF-04 |
 | RN-05 | Movimentações concluídas permanecem no histórico. Ajustes ficam para uma evolução futura. | RF-05 |
 | RN-06 | Cada usuário poderá realizar apenas as ações permitidas para seu perfil. | RF-06 |
+| RN-07 | O estoque mínimo é opcional e, quando informado, é um inteiro maior ou igual a zero. | RF-07 |
+| RN-08 | Um produto está com estoque baixo quando tem mínimo configurado e o saldo é igual ou menor que ele. Produtos sem mínimo não entram no indicador. | RF-08 |
 
 ## Histórias de usuário e critérios de aceitação
 
@@ -60,6 +64,9 @@ Os [testes](../testes/plano-de-testes.md) detalham a verificação dos requisito
 | US-03 · #3 | Supervisor e auxiliar precisam registrar recebimentos. | Uma entrada de 5 sobre um saldo de 10 resulta em 15. Quantidade inválida não altera o saldo. | RF-03, RNF-05 |
 | US-04 · #4 | Supervisor e auxiliar precisam registrar retiradas. | Uma saída de 3 sobre um saldo de 10 resulta em 7. Uma saída acima do saldo é rejeitada. | RF-04, RNF-05 |
 | US-05 · #5 | Supervisor e auxiliar precisam conferir as mudanças no estoque. | O histórico mostra entradas e saídas com produto, tipo e quantidade. | RF-05 |
+| US-06 · #14 | O supervisor precisa definir um limite de reposição por produto. | O mínimo aceita apenas inteiros ≥ 0, pode ser removido e permanece após reiniciar. | RF-07, RNF-02, RNF-06 |
+| US-07 · #15 | Supervisor e auxiliar precisam identificar itens a repor. | Produtos com saldo igual ou abaixo do mínimo aparecem como "Estoque baixo". Produtos acima do mínimo não recebem o alerta. | RF-08 |
+| US-13 · #20 | O supervisor precisa de uma visão resumida do estoque. | A Visão geral mostra total de produtos, unidades, itens sem saldo e itens com estoque baixo quando há limite configurado. | RF-02, RF-08 |
 
 ## Fora do escopo atual
 
@@ -75,3 +82,4 @@ Importação automática de movimentações, visualização 3D da localização 
 | 5 | Pesquisa, interface e gravação conjunta de saldo e histórico. | #16, #30, #31 |
 | 6 | API Flask e persistência em SQLite. | #22, #23, #24, #33 |
 | 7 | Cobertura dos fluxos e correção no total de unidades. | #34, #35 |
+| 8 | Estoque mínimo, alerta e indicador de estoque baixo. | #14, #15, #20 |

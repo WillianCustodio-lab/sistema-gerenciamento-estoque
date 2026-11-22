@@ -30,6 +30,16 @@ def read_quantity(data, minimum):
     return quantity
 
 
+def read_minimum(data):
+    """Estoque mínimo opcional: ausente, nulo ou vazio significa limite não configurado."""
+    minimum = data.get("minimum")
+    if minimum is None or minimum == "":
+        return None
+    if type(minimum) is not int or not 0 <= minimum <= MAX_QUANTITY:
+        raise InventoryError(f"Informe um estoque mínimo inteiro entre 0 e {MAX_QUANTITY}.")
+    return minimum
+
+
 class InventoryRepository:
     def __init__(self, database):
         self.database = database
@@ -37,7 +47,7 @@ class InventoryRepository:
     def snapshot(self):
         with connect(self.database) as db, db:
             db.execute("BEGIN")
-            products = db.execute("SELECT code, name, category, quantity FROM products ORDER BY rowid")
+            products = db.execute("SELECT code, name, category, quantity, minimum FROM products ORDER BY rowid")
             movements = db.execute("""
                 SELECT m.id, m.product_code AS productCode, p.name AS productName,
                        m.type, m.quantity, m.created_at AS createdAt
@@ -54,17 +64,32 @@ class InventoryRepository:
         name = read_text(data, "name", "Nome", 160)
         category = read_text(data, "category", "Categoria", 120, required=False)
         quantity = read_quantity(data, 0)
+        minimum = read_minimum(data)
         if len(code) > 60:
             raise InventoryError("O código deve ter até 60 caracteres.")
         with connect(self.database) as db, db:
             db.execute("BEGIN IMMEDIATE")
             result = db.execute(
-                "INSERT INTO products VALUES (?, ?, ?, ?) ON CONFLICT(code) DO NOTHING",
-                (code, name, category, quantity),
+                "INSERT INTO products(code, name, category, quantity, minimum) VALUES (?, ?, ?, ?, ?)"
+                " ON CONFLICT(code) DO NOTHING",
+                (code, name, category, quantity, minimum),
             )
             if result.rowcount == 0:
                 raise InventoryError("Já existe um produto cadastrado com esse código.", 409)
-        return {"code": code, "name": name, "category": category, "quantity": quantity}
+        return {"code": code, "name": name, "category": category, "quantity": quantity, "minimum": minimum}
+
+    def set_minimum(self, code, data):
+        code = read_text({"code": code}, "code", "Código do produto", 60).upper()
+        minimum = read_minimum(data)
+        with connect(self.database) as db, db:
+            db.execute("BEGIN IMMEDIATE")
+            result = db.execute("UPDATE products SET minimum = ? WHERE code = ?", (minimum, code))
+            if result.rowcount == 0:
+                raise InventoryError("Produto não encontrado.", 404)
+            product = db.execute(
+                "SELECT code, name, category, quantity, minimum FROM products WHERE code = ?", (code,)
+            ).fetchone()
+        return dict(product)
 
     def register_movement(self, data):
         code = read_text(data, "productCode", "Código do produto", 60).upper()

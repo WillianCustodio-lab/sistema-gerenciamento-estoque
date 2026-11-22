@@ -37,6 +37,11 @@
         <div><dt>Produtos cadastrados</dt><dd id="total-products">0</dd></div>
         <div><dt>Unidades em estoque</dt><dd id="total-units">0</dd></div>
         <div><dt>Produtos sem estoque</dt><dd id="total-out">0</dd></div>
+        <div>
+          <dt>Produtos com estoque baixo</dt>
+          <dd id="total-low" aria-describedby="low-help">—</dd>
+          <p id="low-help" class="help"></p>
+        </div>
       </dl>
       <section class="panel" aria-labelledby="recent-title">
         <div class="panel-header">
@@ -69,7 +74,7 @@
         <p id="products-empty" class="empty"></p>
         <div id="product-table" class="table-wrap" role="region" aria-labelledby="product-list-title" tabindex="0" hidden>
           <table aria-labelledby="product-list-title">
-            <thead><tr><th scope="col">Código</th><th scope="col">Nome</th><th scope="col">Categoria</th><th scope="col" class="numeric">Saldo</th><th scope="col">Situação</th></tr></thead>
+            <thead><tr><th scope="col">Código</th><th scope="col">Nome</th><th scope="col">Categoria</th><th scope="col" class="numeric">Saldo</th><th scope="col" class="numeric">Mínimo</th><th scope="col">Situação</th><th scope="col"><span class="visually-hidden">Ações</span></th></tr></thead>
             <tbody id="product-list"></tbody>
           </table>
         </div>
@@ -121,11 +126,30 @@
         <label>Nome<input name="name" required></label>
         <label>Categoria <span class="help">(opcional)</span><input name="category"></label>
         <label>Quantidade inicial<input name="quantity" type="number" min="0" step="1" value="0" required></label>
+        <label>Estoque mínimo <span class="help">(opcional)</span><input name="minimum" type="number" min="0" step="1"></label>
       </div>
       <p id="product-message" class="message" role="alert"></p>
       <div class="dialog-actions">
         <button id="cancel-product" type="button">Cancelar</button>
         <button id="submit-product" class="primary" type="submit">Cadastrar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="minimum-dialog" aria-labelledby="minimum-title">
+    <form id="minimum-form">
+      <h2 id="minimum-title">Definir estoque mínimo</h2>
+      <p id="minimum-product" class="help"></p>
+      <div class="product-fields">
+        <label>Estoque mínimo
+          <input name="minimum" type="number" min="0" step="1" aria-describedby="minimum-help">
+          <span id="minimum-help" class="help">Deixe em branco para remover o limite.</span>
+        </label>
+      </div>
+      <p id="minimum-message" class="message" role="alert"></p>
+      <div class="dialog-actions">
+        <button id="cancel-minimum" type="button">Cancelar</button>
+        <button id="submit-minimum" class="primary" type="submit">Salvar</button>
       </div>
     </form>
   </dialog>

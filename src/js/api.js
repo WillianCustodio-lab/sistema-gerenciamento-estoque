@@ -1,9 +1,9 @@
 (function () {
   class InventoryApiError extends Error {}
 
-  async function request(path, payload) {
+  async function request(path, payload, method = "POST") {
     const options = payload === undefined ? {} : {
-      method: "POST",
+      method,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     };
@@ -17,6 +17,8 @@
     InventoryApiError,
     load: () => request("/api/inventory"),
     registerProduct: (product) => request("/api/products", product),
+    setMinimum: (code, minimum) =>
+      request("/api/products/" + encodeURIComponent(code) + "/minimum", { minimum }, "PUT"),
     registerMovement: (movement) => request("/api/movements", movement),
   };
 })();
