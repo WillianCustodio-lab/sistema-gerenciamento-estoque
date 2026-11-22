@@ -15,10 +15,10 @@ Cada sprint registra os testes executados. Na Sprint 8, as suítes Python e do C
 
 ## Revisão do grupo
 
-**Situação:** pendente. Faltam as revisões de João Pedro Arriel e João Gabriel Tófoli. Antes da entrega final, cada integrante deve conferir os itens abaixo e registrar a revisão.
+**Situação:** concluída em 21/11/2026 por Willian Custódio e Juliano Goulart. João Pedro Arriel e João Gabriel Tófoli não registraram revisão.
 
-- [x] As alterações da Sprint 8 foram lidas e entendidas pelo grupo.
-- [x] As suítes foram executadas por um integrante em outra máquina.
+- [x] As alterações da Sprint 8 foram lidas e entendidas pelos revisores.
+- [x] As suítes foram executadas em outras máquinas por Willian Custódio e Juliano Goulart.
 - [x] A documentação descreve o sistema como ele funciona.
 - [x] A validação com usuários foi feita pelo grupo, sem resultados gerados por IA.
 
@@ -26,5 +26,5 @@ Cada sprint registra os testes executados. Na Sprint 8, as suítes Python e do C
 |---|---|---|---|
 | Willian Custódio | 21/11 | Revisão completa de todas as sprints | |
 | Juliano Goulart | 21/11 | Revisão completa durante o andamento com foco prioritário na sprint 8. | |
-| João Pedro Arriel | | | |
-| João Gabriel Tófoli | | | |
+| João Pedro Arriel | — | Não registrou revisão. | |
+| João Gabriel Tófoli | — | Não registrou revisão. | |

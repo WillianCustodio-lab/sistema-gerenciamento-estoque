@@ -13,7 +13,7 @@ A sprint completa os indicadores da Visão geral com o estoque baixo, valida o s
 | [#20](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/20) | Indicador "Produtos com estoque baixo" na Visão geral (RF-08) | CT-11 | Concluído |
 | A criar | Validação com usuários | [Roteiro e registro](../testes/validacao-usuarios.md) | Concluído. Critério de aceite atendido, com 3 participantes. |
 | A criar | Integração contínua (GitHub Actions) | [ci.yml](../../.github/workflows/ci.yml) e [arquitetura](../arquitetura/arquitetura.md#execução-e-implantação) | Concluído. A CI passou no pull request da sprint. |
-| [#12](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/12) | Registro do uso de IA e da revisão do grupo | [Uso de IA](../uso-de-ia.md) | Aguarda revisão do grupo |
+| [#12](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/12) | Registro do uso de IA e da revisão do grupo | [Uso de IA](../uso-de-ia.md) | Concluído. Revisado por Willian Custódio e Juliano Goulart. |
 
 ## Decisões
 
@@ -27,7 +27,7 @@ A sprint completa os indicadores da Visão geral com o estoque baixo, valida o s
 1. ~~Conferir na aba **Actions** do GitHub que a primeira execução da CI passou.~~ Concluído.
 2. ~~Fazer as sessões do [roteiro de validação](../testes/validacao-usuarios.md) e registrar os resultados.~~ Concluído.
 3. Registrar como issue os dois problemas da validação: o nome "Definir mínimo" e a aparência da interface.
-4. Revisar o [registro de uso de IA](../uso-de-ia.md) e fechar a #12.
+4. ~~Revisar o [registro de uso de IA](../uso-de-ia.md).~~ Concluído. Falta fechar a #12.
 5. Fechar as issues #14, #15 e #20 com os links dos commits.
 6. Substituir "A criar" pelos números das issues e acrescentar os commits nesta página.
 7. Criar e publicar a tag: `git tag -a sprint-08 -m "Sprint 8"` e `git push origin sprint-08`.

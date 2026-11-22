@@ -19,7 +19,7 @@ O quadro principal utiliza quatro estados: **A fazer**, **Em andamento**, **Em r
 | `#15` | Destacar produtos com estoque baixo | Média | Concluído |
 | `#20` | Indicador de estoque baixo na Visão geral | Média | Concluído |
 | A criar | Integração contínua | Média | Concluído |
-| `#12` | Registro do uso de IA e da revisão do grupo | Média | Em revisão |
+| `#12` | Registro do uso de IA e da revisão do grupo | Média | Concluído |
 
 ## Escopo do MVP
 
