@@ -1,15 +1,25 @@
 # Backlog do Produto
 
-## Organização atual
+**Atualizado em:** 21/11/2026. **Quadro:** [GitHub Project](https://github.com/users/WillianCustodio-lab/projects/1).
 
-O quadro principal utiliza quatro estados: **A fazer**, **Em andamento**, **Em revisão** e **Concluído**.
+## Organização
 
-## Sprint corrente — Sprint 7
+O quadro principal utiliza quatro estados: **A fazer**, **Em andamento**, **Em revisão** e **Concluído**. As prioridades são **Alta**, **Média** e **Baixa**. As referências a P0, P1 e P2 nas issues da Sprint 1 correspondem, nessa ordem, a Alta, Média e Baixa.
 
-| Issue | Item | Estado |
-|---|---|---|
-| `#34` | Corrigir a precisão do total de unidades | Concluído |
-| `#35` | Consolidar o plano, as suítes e as evidências da Sprint 7 | Concluído |
+**Para iniciar um item:** a issue descreve a necessidade e os critérios de aceitação, tem prioridade e foi selecionada para a sprint.
+
+**Para concluir um item:** os critérios de aceitação foram verificados, os testes passam, a documentação afetada foi atualizada e a issue cita os commits ou arquivos de evidência.
+
+## Sprint corrente — Sprint 8
+
+| Issue | Item | Prioridade | Estado |
+|---|---|---|---|
+| A criar | Validação com usuários | Alta | A fazer |
+| `#14` | Definir estoque mínimo por produto | Média | Concluído |
+| `#15` | Destacar produtos com estoque baixo | Média | Concluído |
+| `#20` | Indicador de estoque baixo na Visão geral | Média | Concluído |
+| A criar | Integração contínua | Média | Em revisão |
+| `#12` | Registro do uso de IA e da revisão do grupo | Média | Em revisão |
 
 ## Escopo do MVP
 
@@ -21,6 +31,30 @@ O quadro principal utiliza quatro estados: **A fazer**, **Em andamento**, **Em r
 | `#4` | Registrar saídas com validação de saldo | Concluído |
 | `#5` | Consultar movimentações | Concluído |
 
-Evoluções futuras: autenticação, perfis, fornecedores, lotes, indicadores avançados, localização e integrações.
+## Além do MVP
 
-**Próxima etapa:** validar o sistema e consolidar a entrega na Sprint 8. [Registros das sprints](sprints)
+| Issue | Funcionalidade | Prioridade | Situação |
+|---|---|---|---|
+| `#16` | Pesquisar produtos | Média | Concluído na Sprint 5 |
+| `#14`, `#15`, `#20` | Estoque mínimo, alerta e indicador de estoque baixo | Média | Concluído na Sprint 8 |
+| `#17` | Filtrar produtos por categoria | Baixa | Evolução futura |
+| `#18` | Editar informações de produtos | Baixa | Evolução futura |
+| `#19` | Desativar produtos | Baixa | Evolução futura |
+| `#21` | Registrar localização física | Baixa | Evolução futura |
+
+Outras evoluções futuras: autenticação, perfis, fornecedores, lotes e integrações.
+
+## Histórico de refinamento
+
+| Sprint | Alteração |
+|---|---|
+| Sprint 1 | Organização inicial do Product Backlog. |
+| Sprint 2 | Definição dos requisitos e primeiro fluxo web. |
+| Sprint 3 | Modelagem, rastreabilidade e registro de entradas. |
+| Sprint 4 | Separação de responsabilidades, saídas e histórico completo. |
+| Sprint 5 | Padrão Repository, nova interface e pesquisa (#16). O indicador de estoque baixo (#20) ficou pendente porque depende da #14. |
+| Sprint 6 | Integração com Flask e SQLite. |
+| Sprint 7 | Testes automatizados e correção do total de unidades (#34). |
+| Sprint 8 | #14, #15 e #20 selecionadas para completar os indicadores, com prioridade elevada de Baixa para Média. Inclusão da validação com usuários e da integração contínua. A hospedagem foi descartada por não ser exigida. |
+
+[Registros das sprints](sprints)
