@@ -12,7 +12,7 @@ A sprint completa os indicadores da Visão geral com o estoque baixo, valida o s
 | [#15](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/15) | Selo "Estoque baixo" na lista de produtos (RF-08) | CT-11 | Concluído |
 | [#20](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/20) | Indicador "Produtos com estoque baixo" na Visão geral (RF-08) | CT-11 | Concluído |
 | A criar | Validação com usuários | [Roteiro e registro](../testes/validacao-usuarios.md) | A fazer |
-| A criar | Integração contínua (GitHub Actions) | [ci.yml](../../.github/workflows/ci.yml) e [arquitetura](../arquitetura/arquitetura.md#execução-e-implantação) | Configurado. Falta confirmar a primeira execução no GitHub. |
+| A criar | Integração contínua (GitHub Actions) | [ci.yml](../../.github/workflows/ci.yml) e [arquitetura](../arquitetura/arquitetura.md#execução-e-implantação) | Concluído. A CI passou no pull request da sprint. |
 | [#12](https://github.com/WillianCustodio-lab/sistema-gerenciamento-estoque/issues/12) | Registro do uso de IA e da revisão do grupo | [Uso de IA](../uso-de-ia.md) | Aguarda revisão do grupo |
 
 ## Decisões
@@ -24,7 +24,7 @@ A sprint completa os indicadores da Visão geral com o estoque baixo, valida o s
 
 ## Para encerrar a sprint
 
-1. Conferir na aba **Actions** do GitHub que a primeira execução da CI passou.
+1. ~~Conferir na aba **Actions** do GitHub que a primeira execução da CI passou.~~ Concluído.
 2. Fazer as sessões do [roteiro de validação](../testes/validacao-usuarios.md) e registrar os resultados.
 3. Corrigir ou registrar como issue os problemas encontrados.
 4. Revisar o [registro de uso de IA](../uso-de-ia.md) e fechar a #12.
