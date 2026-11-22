@@ -58,6 +58,10 @@ def create_app(config=None):
     def register_product():
         return jsonify(repository.register_product(read_payload())), 201
 
+    @app.put("/api/products/<path:code>/minimum")
+    def set_minimum(code):
+        return jsonify(repository.set_minimum(code, read_payload()))
+
     @app.post("/api/movements")
     def register_movement():
         return jsonify(repository.register_movement(read_payload())), 201
