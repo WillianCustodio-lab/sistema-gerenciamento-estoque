@@ -45,12 +45,13 @@ function navigate(page, name) {
   return page.getByRole("navigation").getByRole("link", { name, exact: true }).click();
 }
 
-async function fillProduct(page, code, name, quantity) {
+async function fillProduct(page, code, name, quantity, minimum) {
   await page.getByRole("button", { name: "Novo produto" }).click();
   const dialog = page.getByRole("dialog");
   await dialog.getByLabel("Código").fill(code);
   await dialog.getByLabel("Nome").fill(name);
   await dialog.getByLabel("Quantidade inicial").fill(String(quantity));
+  if (minimum !== undefined) await dialog.getByLabel("Estoque mínimo").fill(String(minimum));
   await dialog.getByRole("button", { name: "Cadastrar", exact: true }).click();
   return dialog;
 }
@@ -160,6 +161,53 @@ test("CT-10: indicador de unidades mantém a precisão acima do limite de Number
     await page.goto(address);
     await page.locator("#total-products").getByText("2", { exact: true }).waitFor();
     assert.equal(await page.locator("#total-units").innerText(), "9.007.199.254.740.993");
+  } finally {
+    await page.close();
+  }
+});
+
+test("CT-11: estoque mínimo, destaque e indicador de estoque baixo", async () => {
+  const page = await browser.newPage();
+  try {
+    const errors = [];
+    page.on("pageerror", (error) => errors.push(error.message));
+    page.setDefaultTimeout(5000);
+    await page.goto(address);
+    await page.locator("#low-help").getByText("Defina o estoque mínimo em Produtos.").waitFor();
+    assert.equal(await page.locator("#total-low").innerText(), "—");
+
+    await navigate(page, "Produtos");
+    const dialog = await fillProduct(page, "FT-03", "Fita adesiva", 4, 5);
+    await dialog.waitFor({ state: "hidden" });
+    const fita = page.locator("#product-list tr", { hasText: "FT-03" });
+    assert.match(await fita.innerText(), /4\s+5\s+Estoque baixo/);
+
+    const caixa = page.locator("#product-list tr", { hasText: "CA-01" });
+    assert.match(await caixa.innerText(), /—\s+Disponível/);
+    await caixa.getByRole("button", { name: /Definir estoque mínimo de Caixa plástica/ }).click();
+    const minimum = page.getByRole("dialog", { name: "Definir estoque mínimo" });
+    await minimum.getByText(/Saldo atual: 12/).waitFor();
+    await minimum.getByLabel("Estoque mínimo").fill("12");
+    await minimum.getByRole("button", { name: "Salvar" }).click();
+    await page.getByText("Estoque mínimo de Caixa plástica definido em 12.").waitFor();
+    assert.match(await caixa.innerText(), /12\s+12\s+Estoque baixo/);
+    assert.match(await page.evaluate(() => document.activeElement.dataset.minimum), /CA-01/);
+
+    await navigate(page, "Visão geral");
+    assert.equal(await page.locator("#total-low").innerText(), "2");
+    assert.match(await page.locator("#low-help").innerText(), /2 produtos com limite/);
+
+    await navigate(page, "Produtos");
+    await fita.getByRole("button", { name: /Definir estoque mínimo/ }).click();
+    await minimum.getByLabel("Estoque mínimo").clear();
+    await minimum.getByRole("button", { name: "Salvar" }).click();
+    await page.getByText("Estoque mínimo removido de Fita adesiva.").waitFor();
+    assert.match(await fita.innerText(), /—\s+Disponível/);
+
+    await page.reload();
+    await navigate(page, "Visão geral");
+    await page.locator("#total-low").getByText("1", { exact: true }).waitFor();
+    assert.deepEqual(errors, []);
   } finally {
     await page.close();
   }

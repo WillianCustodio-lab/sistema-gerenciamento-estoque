@@ -49,6 +49,37 @@ class InventoryTest(unittest.TestCase):
         self.assertEqual(self.repository.snapshot()["products"][0]["quantity"], 10)
         self.assertEqual(self.repository.snapshot()["movements"], [])
 
+    def test_minimum_is_optional_validated_and_persisted(self):
+        self.assertIsNone(self.repository.snapshot()["products"][0]["minimum"])
+        created = self.repository.register_product({"code": "FT-01", "name": "Fita", "quantity": 2, "minimum": 5})
+        self.assertEqual(created["minimum"], 5)
+        for minimum in (-1, True, 1.5, "3"):
+            with self.subTest(minimum=minimum), self.assertRaisesRegex(InventoryError, "mínimo"):
+                self.repository.set_minimum("cx-01", {"minimum": minimum})
+        self.assertEqual(self.repository.set_minimum(" cx-01 ", {"minimum": 0})["minimum"], 0)
+        with self.assertRaises(InventoryError) as missing:
+            self.repository.set_minimum("XX", {"minimum": 1})
+        self.assertEqual(missing.exception.status, 404)
+        reopened = InventoryRepository(self.database).snapshot()["products"]
+        self.assertEqual([p["minimum"] for p in reopened], [0, 5])
+        self.assertIsNone(self.repository.set_minimum("FT-01", {"minimum": None})["minimum"])
+
+    def test_initialize_migrates_database_without_minimum(self):
+        legacy = self.database.with_name("legacy.sqlite3")
+        with connect(legacy) as db:
+            db.executescript("""
+                CREATE TABLE products (code TEXT PRIMARY KEY NOT NULL, name TEXT NOT NULL,
+                    category TEXT NOT NULL DEFAULT '', quantity INTEGER NOT NULL) STRICT;
+                INSERT INTO products VALUES ('OLD-1', 'Antigo', '', 4);
+            """)
+        initialize(legacy)
+        initialize(legacy)
+        repository = InventoryRepository(legacy)
+        self.assertEqual(repository.snapshot()["products"], [
+            {"code": "OLD-1", "name": "Antigo", "category": "", "quantity": 4, "minimum": None},
+        ])
+        self.assertEqual(repository.set_minimum("OLD-1", {"minimum": 4})["minimum"], 4)
+
     def test_concurrent_exits_cannot_overdraw(self):
         def try_exit(_):
             try:
