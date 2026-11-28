@@ -37,7 +37,7 @@ O quadro principal utiliza quatro estados: **A fazer**, **Em andamento**, **Em r
 |---|---|---|---|
 | `#16` | Pesquisar produtos | Média | Concluído na Sprint 5 |
 | `#14`, `#15`, `#20` | Estoque mínimo, alerta e indicador de estoque baixo | Média | Concluído na Sprint 8 |
-| `#39` | Deixar mais claro o objetivo de "Definir mínimo" (validação com usuários) | Média | Evolução futura |
+| `#39` | Deixar mais claro o objetivo de "Definir mínimo" (validação com usuários) | Média | Concluído: botão "Definir estoque mínimo" e texto de ajuda no diálogo |
 | `#40` | Melhorar a aparência da interface (validação com usuários) | Baixa | Evolução futura |
 | `#17` | Filtrar produtos por categoria | Baixa | Evolução futura |
 | `#18` | Editar informações de produtos | Baixa | Evolução futura |
