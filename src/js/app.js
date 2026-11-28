@@ -54,6 +54,10 @@ function searchKey(text) {
 function setupNavigation() {
   const sections = ["visao-geral", "produtos", "movimentacoes"];
   const links = document.querySelectorAll("nav a");
+  document.querySelector(".skip-link").addEventListener("click", (event) => {
+    event.preventDefault();
+    byId("main-content").focus();
+  });
   function navigate(moveFocus) {
     const target = window.location.hash.slice(1);
     const current = sections.includes(target) ? target : sections[0];
@@ -62,6 +66,7 @@ function setupNavigation() {
       if (link.hash === "#" + current) link.setAttribute("aria-current", "page");
       else link.removeAttribute("aria-current");
     });
+    byId("current-section").textContent = byId(current).querySelector("h1").textContent;
     if (moveFocus) byId(current).querySelector("h1").focus();
   }
   window.addEventListener("hashchange", () => navigate(true));
@@ -92,6 +97,7 @@ function setupInventory() {
   let loading = false;
   let saving = false;
   let hasCurrentData = false;
+  let hasLoaded = false;
   let editingCode = "";
   const productDialog = byId("product-dialog");
   const productForm = byId("product-form");
@@ -158,6 +164,44 @@ function setupInventory() {
       : "";
   }
 
+  function renderReplenishment() {
+    const lowProducts = products.filter(isLowStock);
+    byId("replenishment-list").replaceChildren(...lowProducts.slice(0, 5).map((product) => {
+      const item = document.createElement("li");
+      const details = document.createElement("div");
+      const name = document.createElement("strong");
+      name.textContent = product.name;
+      const balance = document.createElement("small");
+      balance.textContent = "Saldo " + numberFormat.format(product.quantity)
+        + " · Mínimo " + numberFormat.format(product.minimum);
+      details.append(name, balance);
+      item.append(details, stockBadge(product));
+      return item;
+    }));
+    byId("replenishment-list").hidden = lowProducts.length === 0;
+    byId("replenishment-empty").hidden = lowProducts.length > 0;
+    byId("replenishment-empty").textContent = products.some(hasMinimum)
+      ? "Nenhum produto abaixo do limite."
+      : "Defina o mínimo dos produtos para acompanhar a reposição.";
+  }
+
+  function updateConnection(state) {
+    document.body.dataset.stockState = state;
+    byId("connection-status").dataset.state = state;
+    const messages = {
+      loading: hasLoaded ? "Atualizando estoque" : "Carregando estoque",
+      ready: "Estoque atualizado",
+      error: hasLoaded ? "Dados desatualizados" : "Estoque indisponível",
+    };
+    byId("connection-text").textContent = messages[state];
+    if (!hasLoaded) {
+      const text = state === "error" ? "Dados indisponíveis." : "Carregando estoque…";
+      for (const id of ["recent-empty", "history-empty", "products-empty", "replenishment-empty"]) {
+        byId(id).textContent = text;
+      }
+    }
+  }
+
   function render() {
     byId("total-products").textContent = numberFormat.format(products.length);
     const totalUnits = products.reduce((sum, product) => sum + BigInt(product.quantity), 0n);
@@ -171,7 +215,10 @@ function setupInventory() {
       ? "Saldo igual ou abaixo do mínimo em " + configured.length
         + (configured.length === 1 ? " produto com limite." : " produtos com limite.")
       : "Defina o estoque mínimo em Produtos.";
+    byId("recent-empty").textContent = "Nenhuma movimentação registrada.";
+    byId("history-empty").textContent = "Nenhuma movimentação registrada.";
     renderProducts();
+    renderReplenishment();
     renderMovementTable("recent", movements.slice(0, 5));
     renderMovementTable("history", movements);
     const selectedCode = movementProduct.value;
@@ -198,14 +245,18 @@ function setupInventory() {
 
   async function refresh(errorMessage) {
     loading = true;
+    updateConnection("loading");
     updateControls();
     try {
       ({ products, movements } = await api.load());
       hasCurrentData = true;
+      hasLoaded = true;
       render();
+      updateConnection("ready");
       byId("load-error-panel").hidden = true;
     } catch {
       hasCurrentData = false;
+      updateConnection("error");
       byId("load-error").textContent = errorMessage;
       byId("load-error-panel").hidden = false;
     } finally {
