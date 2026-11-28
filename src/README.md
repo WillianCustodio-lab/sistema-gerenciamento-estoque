@@ -12,7 +12,7 @@ python -m venv .venv
 .\.venv\Scripts\python -m flask --app src.backend.app run
 ```
 
-Abra `http://127.0.0.1:5000`. Em **Produtos**, cadastre um item. Em **Movimentações**, selecione o tipo, o produto e a quantidade. Confira o saldo em **Produtos** e a operação no **Histórico de movimentações**. Use **Definir mínimo** em um produto para acompanhar o estoque baixo na **Visão geral**.
+Abra `http://127.0.0.1:5000`. Em **Produtos**, cadastre um item. Em **Movimentações**, selecione o tipo, o produto e a quantidade. Confira o saldo em **Produtos** e a operação no **Histórico de movimentações**. Use **Definir estoque mínimo** em um produto para acompanhar o estoque baixo na **Visão geral**.
 
 O Flask cria o banco vazio em `instance/estoque.sqlite3`. Os dados da Sprint 5 ficam no navegador usado para aquela versão.
 

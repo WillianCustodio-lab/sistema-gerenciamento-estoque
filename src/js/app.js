@@ -128,7 +128,7 @@ function setupInventory() {
     button.type = "button";
     button.className = "compact";
     button.dataset.minimum = product.code;
-    button.textContent = "Definir mínimo";
+    button.textContent = "Definir estoque mínimo";
     button.setAttribute("aria-label", "Definir estoque mínimo de " + product.name + " (" + product.code + ")");
     button.disabled = !hasCurrentData || loading || saving;
     button.addEventListener("click", () => openMinimumDialog(product));
