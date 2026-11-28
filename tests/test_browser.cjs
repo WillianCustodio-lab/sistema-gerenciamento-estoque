@@ -184,9 +184,11 @@ test("CT-11: estoque mínimo, destaque e indicador de estoque baixo", async () =
 
     const caixa = page.locator("#product-list tr", { hasText: "CA-01" });
     assert.match(await caixa.innerText(), /—\s+Disponível/);
+    assert.match(await caixa.innerText(), /Definir estoque mínimo/);
     await caixa.getByRole("button", { name: /Definir estoque mínimo de Caixa plástica/ }).click();
     const minimum = page.getByRole("dialog", { name: "Definir estoque mínimo" });
     await minimum.getByText(/Saldo atual: 12/).waitFor();
+    await minimum.getByText(/indica quando repor o produto/).waitFor();
     await minimum.getByLabel("Estoque mínimo").fill("12");
     await minimum.getByRole("button", { name: "Salvar" }).click();
     await page.getByText("Estoque mínimo de Caixa plástica definido em 12.").waitFor();
