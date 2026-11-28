@@ -41,8 +41,11 @@ after(async () => {
   }
 });
 
-function navigate(page, name) {
-  return page.getByRole("navigation").getByRole("link", { name, exact: true }).click();
+async function navigate(page, name) {
+  const link = page.getByRole("navigation").getByRole("link", { name, exact: true });
+  const target = await link.getAttribute("href");
+  await link.click();
+  await page.locator(target).waitFor({ state: "visible" });
 }
 
 async function fillProduct(page, code, name, quantity, minimum) {
@@ -76,6 +79,10 @@ test("CT-07 a CT-09: navegação, operação do estoque e recuperação de conex
     await page.evaluate(() => { window.sprintNavigation = true; });
     await navigate(page, "Produtos");
     assert.equal(await page.evaluate(() => window.sprintNavigation), true);
+    await page.getByRole("link", { name: "Ir para o conteúdo" }).focus();
+    await page.keyboard.press("Enter");
+    assert.equal(await page.locator("#produtos").isVisible(), true);
+    assert.equal(await page.evaluate(() => document.activeElement.id), "main-content");
     await page.locator("#products-empty").waitFor();
 
     let dialog = await fillProduct(page, "ca-01", "Caixa plástica", 10);
@@ -198,6 +205,9 @@ test("CT-11: estoque mínimo, destaque e indicador de estoque baixo", async () =
     await navigate(page, "Visão geral");
     assert.equal(await page.locator("#total-low").innerText(), "2");
     assert.match(await page.locator("#low-help").innerText(), /2 produtos com limite/);
+    assert.equal(await page.locator("#replenishment-list li").count(), 2);
+    assert.match(await page.locator("#replenishment-list").innerText(), /Fita adesiva/);
+    assert.match(await page.locator("#replenishment-list").innerText(), /Caixa plástica/);
 
     await navigate(page, "Produtos");
     await fita.getByRole("button", { name: /Definir estoque mínimo/ }).click();
@@ -210,6 +220,25 @@ test("CT-11: estoque mínimo, destaque e indicador de estoque baixo", async () =
     await navigate(page, "Visão geral");
     await page.locator("#total-low").getByText("1", { exact: true }).waitFor();
     assert.deepEqual(errors, []);
+  } finally {
+    await page.close();
+  }
+});
+
+test("Falha inicial informa indisponibilidade e permite atualizar o estoque", async () => {
+  const page = await browser.newPage();
+  try {
+    await page.route("**/api/inventory", (route) => route.abort());
+    await page.goto(address);
+    await page.getByText("Estoque indisponível", { exact: true }).waitFor();
+    assert.equal(await page.locator("#total-products").innerText(), "—");
+    assert.equal(await page.locator("#total-units").innerText(), "—");
+    assert.equal(await page.locator("#new-product").isDisabled(), true);
+    await page.unroute("**/api/inventory");
+    await page.getByRole("button", { name: "Atualizar estoque" }).click();
+    await page.getByText("Estoque atualizado", { exact: true }).waitFor();
+    assert.notEqual(await page.locator("#total-products").innerText(), "—");
+    assert.equal(await page.locator("#load-error-panel").isVisible(), false);
   } finally {
     await page.close();
   }

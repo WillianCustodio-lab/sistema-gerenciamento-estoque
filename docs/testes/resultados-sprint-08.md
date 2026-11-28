@@ -13,3 +13,5 @@ Na primeira execução do CT-09, a página ficou com 585 px de largura em uma te
 A [validação com usuários](validacao-usuarios.md) atendeu ao critério de aceite com três participantes.
 
 Os casos e comandos estão no [plano de testes](plano-de-testes.md).
+
+**Revisão visual — 28/11/2026:** 12 testes Python e 4 testes no Chrome passaram após a atualização da interface, incluindo a lista de reposição e a recuperação da consulta.
